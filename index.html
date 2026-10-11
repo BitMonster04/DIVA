@@ -22,8 +22,8 @@
 @media (prefers-color-scheme: dark){
 :root{--bg:#1a1225;--card:rgba(255,255,255,.07);--card2:rgba(255,255,255,.05);--borda:rgba(255,255,255,.11);--txt:#f0e8f8;--mut:#b0a0c0;--mut2:#7a6b8a;--b:#A79BE0;--r:#D6A9E4;--ceu:#A8D6E6;--ok:#7bc490;--aviso:#e0a878;--dourado:#e0b960;--sombra:0 8px 24px rgba(0,0,0,.35);--surf-strong:rgba(255,255,255,.15);--surf-mid:rgba(255,255,255,.10);--surf-soft:rgba(255,255,255,.06);--tabs-bg:rgba(26,18,37,.94);--modal-1:#2d1f3d;--modal-2:#241a33;--modal-borda:rgba(167,155,224,.30);--overlay:rgba(10,5,25,.65);--aquarela:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1400' preserveAspectRatio='xMidYMid slice'><defs><filter id='b' x='-50%25' y='-50%25' width='200%25' height='200%25'><feGaussianBlur stdDeviation='80'/></filter></defs><rect width='800' height='1400' fill='%231a1225'/><g filter='url(%23b)' opacity='0.78'><ellipse cx='120' cy='90' rx='280' ry='200' fill='%234a3a7a' opacity='0.60'/><ellipse cx='620' cy='150' rx='300' ry='220' fill='%236a4088' opacity='0.55'/><ellipse cx='350' cy='260' rx='240' ry='160' fill='%232e5a75' opacity='0.50'/><ellipse cx='150' cy='1120' rx='320' ry='260' fill='%234a3a7a' opacity='0.50'/><ellipse cx='640' cy='1240' rx='320' ry='240' fill='%236a4088' opacity='0.50'/><ellipse cx='420' cy='1320' rx='260' ry='180' fill='%232e5a75' opacity='0.48'/></g></svg>");}
 }
-html{background:var(--bg)}
-body{background-color:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.45;min-height:100vh;padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(78px + env(safe-area-inset-bottom,0px));background-image:var(--aquarela);background-repeat:no-repeat;background-size:cover;background-attachment:fixed;background-position:center;transition:background-color .3s,color .3s}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{background-color:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.45;min-height:100vh;min-height:100dvh;padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(78px + env(safe-area-inset-bottom,0px));background-image:var(--aquarela);background-repeat:no-repeat;background-size:cover;background-attachment:fixed;background-position:center;transition:background-color .3s,color .3s;overscroll-behavior-y:none}
 .wrap{max-width:560px;margin:0 auto;padding:14px 14px 20px}
 .topo{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
 .topo .date{flex:1;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--mut2);text-align:center}
@@ -90,7 +90,7 @@ h3{font-size:12px;color:var(--mut);margin:14px 0 6px;font-weight:700;letter-spac
 .escala .nums{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
 .num{aspect-ratio:1;background:var(--surf-mid);color:var(--mut);border:1px solid var(--borda);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;padding:0;transition:all .12s}
 .num.on{background:var(--b);color:#fff;border-color:var(--b);transform:scale(1.05)}
-select,textarea,input{background:var(--surf-strong);color:var(--txt);border:1px solid var(--borda);border-radius:10px;padding:9px 10px;font-size:14px;font-family:inherit;width:100%;outline:none}
+select,textarea,input{background:var(--surf-strong);color:var(--txt);border:1px solid var(--borda);border-radius:10px;padding:9px 10px;font-size:16px;font-family:inherit;width:100%;outline:none}
 select:focus,textarea:focus,input:focus{border-color:var(--b)}
 textarea{resize:vertical;min-height:80px}
 .tabs-bar{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--tabs-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--borda);padding-bottom:env(safe-area-inset-bottom,0);z-index:50}
@@ -278,7 +278,7 @@ details.generic .conteudo{padding:0 14px 14px}
 .premio-btn.sec{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)}
 .rel-overlay{position:fixed;inset:0;z-index:220;background:var(--overlay);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .35s;display:flex;align-items:stretch;justify-content:center;padding:0;overflow:hidden}
 .rel-overlay.ativo{opacity:1;pointer-events:auto}
-.rel-caixa{background:linear-gradient(165deg,var(--modal-1),var(--modal-2));width:100%;max-width:600px;height:100%;display:flex;flex-direction:column;box-shadow:0 20px 80px rgba(0,0,0,.5);transform:translateY(30px);transition:transform .4s cubic-bezier(.2,.9,.3,1.1)}
+.rel-caixa{background:linear-gradient(165deg,var(--modal-1),var(--modal-2));width:100%;max-width:600px;height:100%;height:100dvh;display:flex;flex-direction:column;box-shadow:0 20px 80px rgba(0,0,0,.5);transform:translateY(30px);transition:transform .4s cubic-bezier(.2,.9,.3,1.1)}
 .rel-overlay.ativo .rel-caixa{transform:translateY(0)}
 @media(min-width:640px){.rel-caixa{height:92vh;border-radius:22px;margin:auto;border:1px solid var(--modal-borda)}}
 .rel-topbar{display:flex;justify-content:flex-end;padding:12px 14px 4px;flex-shrink:0}
@@ -311,27 +311,19 @@ details.generic .conteudo{padding:0 14px 14px}
 .onb-btn:active{transform:scale(.97)}
 .onb-btn.sec{background:transparent;color:var(--mut);border:1px solid var(--borda);box-shadow:none;font-weight:600;font-size:13.5px;margin-top:10px;padding:12px}
 .onb-link{background:transparent;color:var(--mut);border:none;font-size:12.5px;text-decoration:underline;cursor:pointer;font-family:inherit;display:block;margin:10px auto 0;padding:6px}
-@media print{
-  body{background:#fff !important;color:#000 !important;padding:0 !important;background-image:none !important}
-  body > *{display:none !important}
-  .rel-overlay.ativo, .resumo-overlay.ativo{display:flex !important;position:static !important;background:#fff !important;padding:0 !important;height:auto !important;inset:auto !important;opacity:1 !important;backdrop-filter:none !important;overflow:visible !important;pointer-events:auto !important;align-items:stretch !important;justify-content:center !important}
-  .rel-caixa, .resumo-caixa{background:#fff !important;max-width:100% !important;height:auto !important;box-shadow:none !important;transform:none !important;border:none !important;border-radius:0 !important;margin:0 !important;display:block !important;max-height:none !important}
-  .rel-topbar,.rel-bottombar,.rs-rodape{display:none !important}
-  .rel-scroll, .rs-corpo{overflow:visible !important;padding:30px 40px !important;height:auto !important;display:block !important;max-height:none !important}
-  .rel-p,.rel-pergunta-q,.rel-despedida,.rs-sec p,.rs-frase,.rs-lista li,.rel-notas .n{color:#000 !important}
-  .rel-titulo,.rel-h2,.rs-titulo,.rs-sec .lbl{color:#5b3d7a !important}
-  .rel-data,.rs-periodo{color:#666 !important}
-  .rel-pergunta,.rel-despedida,.rel-notas,.rs-frase{background:#f5f0fa !important;border-color:#c7b8e0 !important;page-break-inside:avoid}
-  .rs-sec{page-break-inside:avoid}
-  @page{margin:18mm 16mm}
-}
-.modal-caixa.alta{max-height:88vh;overflow-y:auto}
+.modal-caixa.alta{max-height:88vh;max-height:88dvh;overflow-y:auto}
 .modal-btn.sel{outline:2px solid var(--r)}
 .dz-card{background:var(--surf-mid);border:1px solid var(--borda);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
 .dz-txt{font-size:14px;font-weight:700;color:var(--txt);line-height:1.35;margin-bottom:5px}
 .dz-est{font-size:11.5px;font-weight:700;color:var(--mut)}
 .dz-est.dz-livre{color:var(--r)}
-.dz-cont{font-size:11px;color:var(--mut);margin-left:6px;font-weight:600}
+.dz-cont{font-size:12px;color:var(--b);font-weight:700;min-width:28px;text-align:center;flex-shrink:0;font-variant-numeric:tabular-nums;background:rgba(143,128,209,.16);padding:3px 8px;border-radius:8px}
+.dz-cont-vazio{min-width:28px;background:transparent;padding:0}
+.dz-sum-nome{flex:1;text-align:left;padding-right:10px;min-width:0}
+#laBox details.generic summary{gap:10px}
+.mapa-dim .barra-mini{flex:0 0 72px;height:7px}
+.mapa-dim .val{min-width:36px}
+.mapa-dim .seta{min-width:36px}
 .dz-area{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--r);margin-bottom:4px;text-align:left}
 .dz-trilha{display:flex;gap:4px;margin:10px 0 6px;font-size:10px;font-weight:700;color:var(--mut2)}
 .dz-trilha span{flex:1;text-align:center;padding:6px 2px;border-radius:10px;background:var(--surf-mid);cursor:pointer;transition:background .15s}
@@ -347,10 +339,30 @@ details.generic .conteudo{padding:0 14px 14px}
 .dz-lemb{display:flex;gap:8px;align-items:center;margin-top:10px}
 .dz-lemb input{width:auto;flex:0 0 96px}
 .dz-grav{background:var(--surf-mid);border:1px solid var(--borda);border-radius:12px;padding:10px 12px;margin-bottom:8px;text-align:left}
-.dz-grav.solto{opacity:.7}
+.dz-grav.solto{opacity:.75;border-style:solid;background:rgba(110,168,122,.08);border-color:rgba(110,168,122,.28)}
 .dz-gt{font-size:13.5px;font-weight:700;color:var(--txt);margin-bottom:6px}
 .dz-ga{font-size:12.5px;color:var(--mut);font-style:italic}
 .dz-aliv{margin-bottom:8px}
+.dz-grav.solto .dz-ga{color:var(--txt);font-style:normal}
+.dz-sug-bloco{margin:8px 0 10px}
+.dz-sug-tit{font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--mut2);margin-bottom:6px}
+.dz-sug{display:block;width:100%;text-align:left;background:var(--surf-strong);border:1px solid rgba(143,128,209,.32);color:var(--txt);border-radius:10px;padding:8px 11px;font-size:12.5px;line-height:1.5;font-family:inherit;font-weight:600;cursor:pointer;margin-bottom:5px;transition:all .14s}
+.dz-sug:active{transform:scale(.98);background:rgba(143,128,209,.18)}
+.dz-sug .g{display:block;font-size:9px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--b);margin-bottom:2px}
+.dz-link-nao-destrava{background:transparent;border:none;color:var(--r);font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;text-decoration:underline;padding:6px 0;margin-top:6px;text-align:left;display:block}
+.dz-menor-passo{background:linear-gradient(135deg, rgba(189,128,209,.14), rgba(143,128,209,.10));border:1px solid rgba(189,128,209,.32);border-radius:12px;padding:12px 14px;margin-top:10px;text-align:left;animation:aparece .4s ease}
+.dz-menor-passo .tt{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--r);margin-bottom:6px}
+.dz-menor-passo .pergunta{font-size:13px;font-style:italic;line-height:1.55;color:var(--txt);margin-bottom:10px;font-family:Georgia,'Times New Roman',serif}
+.dz-menor-passo .campo{display:flex;gap:6px}
+.dz-menor-passo .campo input{flex:1}
+.dz-menor-passo .campo button{background:var(--b);border:none;color:#fff;border-radius:10px;padding:0 16px;font-family:inherit;font-weight:800;font-size:13px;cursor:pointer;flex-shrink:0}
+.dz-menor-salvo{background:var(--surf-strong);border-left:3px solid var(--r);border-radius:8px;padding:8px 11px;font-size:13px;color:var(--txt);line-height:1.5;margin-top:6px}
+.dz-menor-salvo .data{display:block;font-size:10px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--mut2);margin-bottom:3px}
+.dz-evidencias-bloco{margin-top:16px;padding-top:14px;border-top:1px dashed var(--borda)}
+.dz-sub-pt{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--b);margin-bottom:6px}
+.dz-ev{background:var(--surf-strong);border:1px solid var(--borda);border-radius:10px;padding:8px 10px;padding-right:30px;margin-bottom:6px;font-size:12.5px;line-height:1.5;position:relative}
+.dz-ev .data{display:block;font-size:9.5px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--mut2);margin-bottom:3px}
+.dz-ev .x{position:absolute;top:5px;right:7px;background:transparent;border:none;color:var(--mut2);cursor:pointer;font-size:14px;padding:2px 4px;font-family:inherit;line-height:1}
 .bol{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 .toast{position:fixed;left:50%;bottom:calc(78px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(16px);display:flex;align-items:center;gap:14px;max-width:calc(100% - 32px);padding:11px 14px 11px 16px;border-radius:14px;background:linear-gradient(160deg,var(--modal-1),var(--modal-2));border:1px solid var(--modal-borda);color:var(--txt);font-size:13px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:140}
 .toast.ativo{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
@@ -383,7 +395,7 @@ details.generic .conteudo{padding:0 14px 14px}
 /* Resumo semanal e mensal */
 .resumo-overlay{position:fixed;inset:0;z-index:250;background:var(--overlay);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:opacity .4s;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
 .resumo-overlay.ativo{opacity:1;pointer-events:auto}
-.resumo-caixa{background:linear-gradient(160deg,var(--modal-1),var(--modal-2));border:1px solid var(--modal-borda);border-radius:22px;max-width:460px;width:100%;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,.5);transform:translateY(24px) scale(.95);transition:transform .45s cubic-bezier(.2,.9,.3,1.2);margin:auto}
+.resumo-caixa{background:linear-gradient(160deg,var(--modal-1),var(--modal-2));border:1px solid var(--modal-borda);border-radius:22px;max-width:460px;width:100%;max-height:88vh;max-height:88dvh;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,.5);transform:translateY(24px) scale(.95);transition:transform .45s cubic-bezier(.2,.9,.3,1.2);margin:auto}
 .resumo-overlay.ativo .resumo-caixa{transform:translateY(0) scale(1)}
 .resumo-caixa[data-tipo="mensal"]{background:linear-gradient(160deg,#FFF8E7,#F7EEDD);border-color:rgba(201,162,74,.42)}
 @media (prefers-color-scheme: dark){.resumo-caixa[data-tipo="mensal"]{background:linear-gradient(160deg,#3a2a1f,#2d2118);border-color:rgba(224,185,96,.35)}}
@@ -425,6 +437,21 @@ details.generic .conteudo{padding:0 14px 14px}
 .rs-historico-item .per{font-size:12.5px;color:var(--txt);line-height:1.4}
 .rs-historico-vazio{text-align:center;padding:26px 14px;color:var(--mut);font-size:13px;font-style:italic}
 #listaHistorico{max-height:60vh;overflow-y:auto;text-align:left;margin:14px 0}
+
+@media print{
+  body{background:#fff !important;color:#000 !important;padding:0 !important;background-image:none !important}
+  body > *{display:none !important}
+  .rel-overlay.ativo, .resumo-overlay.ativo{display:flex !important;position:static !important;background:#fff !important;padding:0 !important;height:auto !important;inset:auto !important;opacity:1 !important;backdrop-filter:none !important;overflow:visible !important;pointer-events:auto !important;align-items:stretch !important;justify-content:center !important}
+  .rel-caixa, .resumo-caixa{background:#fff !important;max-width:100% !important;height:auto !important;box-shadow:none !important;transform:none !important;border:none !important;border-radius:0 !important;margin:0 !important;display:block !important;max-height:none !important}
+  .rel-topbar,.rel-bottombar,.rs-rodape{display:none !important}
+  .rel-scroll, .rs-corpo{overflow:visible !important;padding:30px 40px !important;height:auto !important;display:block !important;max-height:none !important}
+  .rel-p,.rel-pergunta-q,.rel-despedida,.rs-sec p,.rs-frase,.rs-lista li,.rel-notas .n{color:#000 !important}
+  .rel-titulo,.rel-h2,.rs-titulo,.rs-sec .lbl{color:#5b3d7a !important}
+  .rel-data,.rs-periodo{color:#666 !important}
+  .rel-pergunta,.rel-despedida,.rel-notas,.rs-frase{background:#f5f0fa !important;border-color:#c7b8e0 !important;page-break-inside:avoid}
+  .rs-sec{page-break-inside:avoid}
+  @page{margin:18mm 16mm}
+}
 </style>
 </head>
 <body>
@@ -978,7 +1005,13 @@ details.generic .conteudo{padding:0 14px 14px}
     if (!chave) {
       let meta = null;
       try { const s = await get(ref(db, caminho('meta'))); meta = s.exists() ? s.val() : null; }
-      catch (e) { erro('Não consegui falar com a nuvem. Tente de novo.'); }
+      catch (e) {
+        $('nvTitulo').textContent = '☁️ Sem conexão';
+        $('nvTexto').textContent = 'Não foi possível verificar seu cofre. Seus dados neste aparelho continuam salvos.';
+        erro('Não consegui falar com a nuvem. Tente de novo.');
+        botoes.append(botao('Tentar de novo', 'prim', mostraNuvem), botao('Fechar', 'sec', fecha));
+        abre(); return;
+      }
       const sair = botao('Sair da conta', 'sec', async () => { await sair_(); });
       if (meta) {
         $('nvTitulo').textContent = '🔑 Sua frase-senha';
@@ -1189,7 +1222,19 @@ const PREMIOS_INICIAIS=[['Meia luz com música','Aurora','P',true],['Cantar uma 
 const DESEJOS_INICIAIS=[{texto:'Parque Horto com a Aurora',processo:''},{texto:'Cinema',processo:''},{texto:'Karaokê com amiga',processo:''},{texto:'Jantar fora com amiga',processo:''},{texto:'Receber uma amiga em casa',processo:''},{texto:'Barzinho com vinho',processo:''},{texto:'Teatro, ópera, stand-up ao vivo com alguém',processo:''},{texto:'Atibaia',processo:''}];
 const METAS_VIAGEM_REF=[{num:'Meta 1',tit:'Um dia fora de casa',desc:'Atibaia, um parque, um lugar novo perto. Volta no mesmo dia.'},{num:'Meta 2',tit:'Um fim de semana simples',desc:'Alguma cidade pequena, casa de alguém, pousada barata.'},{num:'Meta 3',tit:'A viagem grande',desc:'Aquela que você quer de verdade.'}];
 function novoIdDz(){return 'd'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
-function novoDesejo(area,texto,declaracao){return{id:novoIdDz(),area,texto,declaracao:declaracao||'',sensacao:null,gravetos:[],notas:[],diasNotados:{},criadoEm:fmtD(new Date())};}
+function novoDesejo(area,texto,declaracao){
+  return{
+    id:novoIdDz(),area,texto,
+    declaracao:declaracao||'',
+    sensacao:null,
+    gravetos:[],
+    evidencias:[],
+    menorPasso:null,
+    notas:[],
+    diasNotados:{},
+    criadoEm:fmtD(new Date())
+  };
+}
 function AREAS_BASE(){return AREAS_INICIAIS().map(a=>({id:a.id,nome:a.nome})).concat([{id:'vontades',nome:'🌟 Vontades e metas'}]);}
 function DESEJOS_ATRACAO_INICIAIS(){
   const out=[];
@@ -1201,7 +1246,7 @@ function estagioDz(d){
   if(!d.declaracao)return{k:'id',emoji:'🌱',nome:'Identificado'};
   const abertos=(d.gravetos||[]).filter(g=>!g.solto).length;
   if(abertos>0||d.sensacao==='duvida')return{k:'perm',emoji:'🪺',nome:'Permitindo'};
-  if(d.sensacao==='boa')return{k:'livre',emoji:'✨',nome:'Sem gravetos'};
+  if(d.sensacao==='boa')return{k:'livre',emoji:'✨',nome:'Sem dúvidas'};
   return{k:'decl',emoji:'💬',nome:'Com declaração'};
 }
 function migrarAtracao(s){
@@ -1215,6 +1260,67 @@ function migrarAtracao(s){
   la.areas=base;la.desejos=des;
 }
 const CORES=['c1','c2','c3','c4','c5','c6'];
+
+/* ============ SUGESTÕES DE PERMISSÃO ============ */
+const SUGESTOES_IMPEDIMENTO=[
+  {palavras:['mãe','mãezinha','mamãe','maternidade','filho pequeno','filha pequena'],
+   categoria:'mães',
+   frases:[
+     'Muitas mães conseguiram espaço pra si dentro de uma rotina cheia.',
+     'Muitas coisas podem acontecer para eu me cuidar sem deixar de estar presente.',
+     'Estou no processo de encontrar tempo pra mim, mesmo com a rotina que tenho.'
+   ]},
+  {palavras:['tempo','rotina','correria','sobrecarga','cansada','exausta','sem tempo','muito pesada'],
+   categoria:'pessoas com rotina cheia',
+   frases:[
+     'Muitas pessoas com rotina cheia encontraram espaço para o que importa.',
+     'Muitas coisas podem acontecer para eu cuidar de mim, mesmo com pouco tempo.',
+     'Estou no processo de reorganizar meu tempo sem deixar de dar conta.'
+   ]},
+  {palavras:['mereço','merecer','valor','digna','digno','capaz','suficiente'],
+   categoria:'pessoas aprendendo a se valorizar',
+   frases:[
+     'Muitas pessoas aprenderam a se valorizar antes de qualquer conquista.',
+     'Muitas coisas podem acontecer quando eu começo a me levar a sério.',
+     'Estou no processo de me permitir o que eu quero.'
+   ]},
+  {palavras:['idade','velho','velha','jovem','tarde','tempo passou'],
+   categoria:'pessoas em qualquer idade',
+   frases:[
+     'Muitas pessoas conseguiram o que queriam em idades muito variadas.',
+     'Muitas coisas podem acontecer independente de quantos anos eu tenho.',
+     'Estou no processo de permitir isso em qualquer idade.'
+   ]},
+  {palavras:['dinheiro','grana','caro','pagar','preço','sem condições','apertado'],
+   categoria:'pessoas com recursos limitados',
+   frases:[
+     'Muitas pessoas com pouco dinheiro conseguiram o que queriam.',
+     'Muitas coisas podem acontecer para isso caber no meu orçamento.',
+     'Estou no processo de encontrar caminhos que caibam na minha realidade.'
+   ]},
+  {palavras:['não sei','nao sei','como','por onde','por onde começar','não sei como'],
+   categoria:'pessoas que ainda não sabem o como',
+   frases:[
+     'Muitas pessoas começaram sem saber como, e o caminho apareceu no meio.',
+     'Muitas coisas podem acontecer mesmo sem eu saber o próximo passo agora.',
+     'Estou no processo de descobrir o como no meio do caminho.'
+   ]}
+];
+const SUGESTOES_GENERICAS=[
+  'Muitas pessoas já conseguiram o que eu quero, do jeito que dava.',
+  'Muitas coisas podem acontecer, mesmo por caminhos que eu não vejo agora.',
+  'Estou no processo de permitir que isso se aproxime de mim.'
+];
+function sugerirPermissoes(texto){
+  const t=(texto||'').toLowerCase();
+  if(!t.trim())return{categoria:null,frases:SUGESTOES_GENERICAS.slice()};
+  for(const cat of SUGESTOES_IMPEDIMENTO){
+    for(const p of cat.palavras){
+      if(t.includes(p))return{categoria:cat.categoria,frases:cat.frases.slice()};
+    }
+  }
+  return{categoria:null,frases:SUGESTOES_GENERICAS.slice()};
+}
 
 function estadoInicial(){
   return{
@@ -1249,6 +1355,9 @@ function garanteNovosCampos(s){
     if(!Array.isArray(d.notas))d.notas=[];
     if(!d.diasNotados||typeof d.diasNotados!=='object')d.diasNotados={};
     if(!d.criadoEm)d.criadoEm=hoje();
+    if(!Array.isArray(d.gravetos))d.gravetos=[];
+    if(!Array.isArray(d.evidencias))d.evidencias=[];
+    if(typeof d.menorPasso==='undefined')d.menorPasso=null;
   });
   if(!s.ciclo)s.ciclo={atual:null,historico:[],proximoEm:null,usados:{aberturas:[],despedidas:[]}};
   if(!s.ciclo.usados)s.ciclo.usados={aberturas:[],despedidas:[]};
@@ -1526,9 +1635,18 @@ function renderDiario(){
     return`<details class="diario-card"><summary><span style="flex:1"><div>📅 ${esc(dataFmt)}</div><div class="diario-resumo">${resumo.map(r=>`<span>${r}</span>`).join('')}</div></span></summary><div class="conteudo">${detalhes||'<div class="mut" style="font-size:12px">Sem detalhes.</div>'}</div></details>`;
   }).join('');
 }
-let ciMontado=false;
+let ciMontado=null;
+let ciViradaTimer=null;
 function montaCheckin(){
-  if(ciMontado)return;ciMontado=true;
+  const dia=hoje();
+  if(ciMontado===dia)return;
+  if(ciMontado&&S.checkins[ciMontado]&&$('ciObs').value!==(S.checkins[ciMontado].observacoes||'')){
+    S.checkins[ciMontado].observacoes=$('ciObs').value;salva();
+  }
+  ciMontado=dia;
+  clearTimeout(ciViradaTimer);
+  const virada=new Date();virada.setHours(24,0,0,50);
+  ciViradaTimer=setTimeout(atualizaDiaCheckin,Math.max(50,virada-Date.now()));
   const ci=S.checkins[hoje()]||(S.checkins[hoje()]={});
   const selD=$('ciDormiu'),selA=$('ciAcordou');
   selD.innerHTML='<option value="">—</option>'+HORAS_DORMIR.map(h=>`<option value="${h}">${h}</option>`).join('');
@@ -1834,19 +1952,19 @@ function renderLA(){
   renderAtracaoTopo();
   $('laBox').innerHTML=la.areas.map(area=>{
     const ds=la.desejos.filter(d=>d.area===area.id);
-    const resumo=ds.length?`<span class="dz-cont">${ds.length}</span>`:'';
+    const resumo=ds.length?`<span class="dz-cont">${ds.length}</span>`:'<span class="dz-cont dz-cont-vazio"></span>';
     const corpo=ds.length?ds.map(d=>{
       const e=estagioDz(d);const ab=(d.gravetos||[]).filter(g=>!g.solto).length;
       const nb=contarDias7(d);
       const nbhtml=nb?`<span class="dz-badge-notas" title="Dias notados nos últimos 7">🔭 ${nb}/7</span>`:'';
-      return`<div class="dz-card" data-dz="${esc(d.id)}"><div class="dz-txt">${esc(d.texto)}</div><span class="dz-est dz-${e.k}">${e.emoji} ${e.nome}${ab?' · '+ab+' graveto'+(ab>1?'s':''):''}</span>${nbhtml}</div>`;
+      const abTxt=ab?` · ${ab} ${ab>1?'dúvidas':'dúvida'}`:'';
+      return`<div class="dz-card" data-dz="${esc(d.id)}"><div class="dz-txt">${esc(d.texto)}</div><span class="dz-est dz-${e.k}">${e.emoji} ${e.nome}${abTxt}</span>${nbhtml}</div>`;
     }).join(''):'<div class="mut" style="font-size:12.5px;padding:2px">Nenhum ainda.</div>';
-    return`<details class="generic" data-area="${esc(area.id)}"${laAbertas.has(area.id)?' open':''}><summary>${esc(area.nome)}${resumo}</summary><div class="conteudo">${corpo}</div></details>`;
+    return`<details class="generic" data-area="${esc(area.id)}"${laAbertas.has(area.id)?' open':''}><summary><span class="dz-sum-nome">${esc(area.nome)}</span>${resumo}</summary><div class="conteudo">${corpo}</div></details>`;
   }).join('');
   document.querySelectorAll('#laBox details').forEach(dt=>{dt.ontoggle=()=>{if(dt.open)laAbertas.add(dt.dataset.area);else laAbertas.delete(dt.dataset.area);};});
   document.querySelectorAll('#laBox [data-dz]').forEach(el=>{el.onclick=()=>abrirDesejo(el.dataset.dz);});
 }
-
 function abrirHistoricoAtracao(){
   const todas=[];
   (S.leiAtracao.desejos||[]).forEach(d=>{(d.notas||[]).forEach(n=>todas.push({...n,desejo:d}));});
@@ -1900,8 +2018,9 @@ $('btnAddDesejo').onclick=()=>{
 $('desejoInput').onkeydown=e=>{if(e.key==='Enter')$('btnAddDesejo').click();};
 
 let dzAtual=null;
+let dzMenorEditando=false;
 const dzFind=()=>S.leiAtracao.desejos.find(d=>d.id===dzAtual);
-const DZ_ETAPAS=[{k:'id',t:'🌱 Identificado',alvo:'dzPasso1'},{k:'decl',t:'💬 Declaração',alvo:'dzPasso2'},{k:'perm',t:'🪺 Permitindo',alvo:'dzPasso3'},{k:'livre',t:'✨ Sem gravetos',alvo:'dzPasso3'}];
+const DZ_ETAPAS=[{k:'id',t:'🌱 Identificado',alvo:'dzPasso1'},{k:'decl',t:'💬 Declaração',alvo:'dzPasso2'},{k:'perm',t:'🪺 Permitindo',alvo:'dzPasso3'},{k:'livre',t:'✨ Sem dúvidas',alvo:'dzPasso3'}];
 function dzTrilha(){
   const d=dzFind();if(!d)return;
   const i=DZ_ETAPAS.findIndex(e=>e.k===estagioDz(d).k);
@@ -1913,6 +2032,47 @@ function dzSalvaCampos(){
   const t=$('dzTexto'),ta=$('dzDecl');
   if(t){const v=t.value.trim();if(v&&v!==d.texto){d.texto=v;salva();}}
   if(ta){const v=ta.value.trim();if(v!==(d.declaracao||'')){d.declaracao=v;d.sensacao=null;salva();dzTrilha();}}
+}
+function renderImpedimento(g){
+  if(g.solto){
+    return`<div class="dz-grav solto">
+      <div class="dz-gt">🪵 ${esc(g.duvida)}</div>
+      <div class="dz-ga">${esc(g.alivio||'—')}</div>
+    </div>`;
+  }
+  const sug=sugerirPermissoes(g.duvida);
+  const botoesSug=sug.frases.map(f=>`<button class="dz-sug" data-sug-frase="${esc(f)}" data-gid="${esc(g.id)}">${esc(f)}</button>`).join('');
+  return`<div class="dz-grav">
+    <div class="dz-gt">🪵 ${esc(g.duvida)}</div>
+    <div class="dz-dica" style="margin:4px 0 6px;font-weight:700;color:var(--txt)">O que me permito acreditar sobre isso?</div>
+    <div class="dz-sug-bloco">
+      <div class="dz-sug-tit">Sugestões</div>
+      ${botoesSug}
+    </div>
+    <input class="dz-aliv" data-gid="${esc(g.id)}" placeholder="Ou escreva a sua..." value="${esc(g.alivio||'')}">
+    <div class="modal-botoes" style="margin-top:8px">
+      <button class="modal-btn sec" data-grem="${esc(g.id)}">Apagar</button>
+      <button class="modal-btn prim" data-gsolta="${esc(g.id)}">Pronto, me permito isso</button>
+    </div>
+    <button class="dz-link-nao-destrava" data-nao-destrava="${esc(g.id)}">Não destravou. Não sei como fazer isso →</button>
+  </div>`;
+}
+function renderMenorPasso(d){
+  if(d.menorPasso && d.menorPasso.texto && !dzMenorEditando){
+    return`<div class="dz-menor-passo">
+      <div class="tt">🌱 Menor passo</div>
+      <div class="dz-menor-salvo"><span class="data">${esc(d.menorPasso.criadoEm||'')}</span>${esc(d.menorPasso.texto)}</div>
+      <button class="btn fant" id="dzEditarMenor" style="margin-top:6px">editar</button>
+    </div>`;
+  }
+  return`<div class="dz-menor-passo">
+    <div class="tt">🌱 Menor passo possível</div>
+    <div class="pergunta">Se isso aparecesse amanhã, o que você faria com isso?</div>
+    <div class="campo">
+      <input id="dzMenorTxt" value="${dzMenorEditando?esc(d.menorPasso?.texto||''):''}" placeholder="Escreva a menor coisa possível...">
+      <button id="dzMenorAdd">Salvar</button>
+    </div>
+  </div>`;
 }
 function dzRender(){
   const d=dzFind();if(!d)return;
@@ -1932,18 +2092,24 @@ function dzRender(){
     ${sens==='boa'?'<p class="mut dz-dica">Ótimo. Volte a essa frase de vez em quando.</p>':''}
     <div class="dz-lemb"><input type="time" id="dzHora" value="08:00"><button class="btn" id="dzLemb">💭 Me lembrar dessa frase</button></div>
     <div class="dz-notar">
-      <div class="cab"><div class="cont">🔭 <b>${dias7}</b> ${dias7===1?'dia':'dias'} de 7</div><button class="btn-note ${notaHoje?'on':''}" id="dzNotar">${notaHoje?'✓ Notado hoje':'Notei hoje'}</button></div>
+      <div class="cab"><div class="cont">🔭 <b>Dia ${dias7} de 7</b></div><button class="btn-note ${notaHoje?'on':''}" id="dzNotar">${notaHoje?'✓ Notado hoje':'Notei hoje'}</button></div>
       <div class="mut dz-dica" style="margin:0 0 4px">Notar não é fazer. É só prestar atenção no desejo quando ele aparece — uma imagem, uma vontade súbita, um sorriso. Registre abaixo.</div>
       <div class="dz-notas-lista">${notas.map(n=>`<div class="dz-nota"><span class="data">${esc(n.data)}</span>${esc(n.texto)}<button class="x" data-nota-rm="${esc(n.id)}">×</button></div>`).join('')}</div>
       <div class="dz-nova-nota"><input id="dzNotaTxt" placeholder="O que você notou?"><button id="dzNotaAdd">+</button></div>
     </div>`;
   const gs=d.gravetos||[];
-  $('dzP3').innerHTML=`<p class="mut dz-dica">Desejo forte com dúvida forte fica parado. Cada "eu não posso porque..." é um graveto. Tire os gravetos e o desejo cai.</p>`
-    +gs.map(g=>g.solto
-      ?`<div class="dz-grav solto"><div class="dz-gt">🍃 ${esc(g.duvida)}</div><div class="dz-ga">Alívio: ${esc(g.alivio||'')}</div></div>`
-      :`<div class="dz-grav"><div class="dz-gt">🪵 ${esc(g.duvida)}</div><input class="dz-aliv" data-gid="${esc(g.id)}" placeholder="O que te dá alívio nessa história?" value="${esc(g.alivio||'')}"><div class="modal-botoes"><button class="modal-btn sec" data-grem="${esc(g.id)}">Apagar</button><button class="modal-btn prim" data-gsolta="${esc(g.id)}">Soltar graveto</button></div></div>`).join('')
-    +`<div class="col2" style="gap:6px;margin-top:8px"><input id="dzNovaDuv" placeholder="Eu não posso porque..."><button class="btn" id="dzAddDuv">+ Adicionar</button></div>
-    <p class="mut dz-dica">Dica: pense em quem já conseguiu isso. Evidência alivia.</p>
+  const evs=(d.evidencias||[]).slice().reverse();
+  $('dzP3').innerHTML=`<p class="mut dz-dica">Pense em bolinhas (desejos) descansando sobre gravetos (dúvidas). A bolinha só cai quando o graveto sai. Não é sobre forçar — é sobre tirar o que trava.</p>`
+    +`<div class="dz-q" style="margin-top:14px">O que me impede?</div>`
+    +`<div class="col2" style="gap:6px;margin-bottom:12px"><input id="dzNovaDuv" placeholder="Ex: não sei como, não tenho tempo..."><button class="btn" id="dzAddDuv">+ Adicionar</button></div>`
+    +gs.map(g=>renderImpedimento(g)).join('')
+    +renderMenorPasso(d)
+    +`<div class="dz-evidencias-bloco">
+      <div class="dz-sub-pt">🌟 Evidências</div>
+      <div class="mut dz-dica" style="margin:0 0 6px">O que apareceu desde que você começou a querer isso? Anote — vale como prova de que está se movendo.</div>
+      <div>${evs.map(e=>`<div class="dz-ev"><span class="data">${esc(e.data)}</span>${esc(e.texto)}<button class="x" data-ev-rm="${esc(e.id)}">×</button></div>`).join('')}</div>
+      <div class="dz-nova-nota"><input id="dzEvTxt" placeholder="O que apareceu?"><button id="dzEvAdd">+</button></div>
+    </div>
     <button class="btn btn-full" id="dzProvas">📖 Ver minhas provas (Conquistas)</button>`;
   const ta=$('dzDecl');
   ta.onblur=dzSalvaCampos;
@@ -1955,12 +2121,45 @@ function dzRender(){
   $('dzNotaAdd').onclick=()=>{dzAddNota($('dzNotaTxt').value);};
   $('dzNotaTxt').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();dzAddNota($('dzNotaTxt').value);}};
   document.querySelectorAll('#dzP2 [data-nota-rm]').forEach(b=>{b.onclick=()=>dzRemNota(b.dataset.notaRm);});
-  document.querySelectorAll('#dzP3 .dz-aliv').forEach(inp=>{inp.onblur=()=>{const dd=dzFind();const g=dd&&(dd.gravetos||[]).find(x=>x.id===inp.dataset.gid);if(g){g.alivio=inp.value.trim();salva();}};});
-  document.querySelectorAll('#dzP3 [data-gsolta]').forEach(b=>{b.onclick=()=>dzSoltar(b.dataset.gsolta);});
-  document.querySelectorAll('#dzP3 [data-grem]').forEach(b=>{b.onclick=()=>{const dd=dzFind();dd.gravetos=dd.gravetos.filter(x=>x.id!==b.dataset.grem);salva();dzRender();};});
   $('dzAddDuv').onclick=dzAddDuvida;
   $('dzNovaDuv').onkeydown=e=>{if(e.key==='Enter')dzAddDuvida();};
+  document.querySelectorAll('#dzP3 .dz-aliv').forEach(inp=>{inp.onblur=()=>{const dd=dzFind();const g=dd&&(dd.gravetos||[]).find(x=>x.id===inp.dataset.gid);if(g){g.alivio=inp.value.trim();salva();}};});
+  document.querySelectorAll('#dzP3 [data-sug-frase]').forEach(b=>{b.onclick=()=>{
+    const gid=b.dataset.sugFrase?b.dataset.gid:'';
+    const frase=b.dataset.sugFrase;
+    const dd=dzFind();if(!dd)return;
+    const g=(dd.gravetos||[]).find(x=>x.id===gid);if(!g)return;
+    g.alivio=frase;salva();
+    const inp=document.querySelector('#dzP3 .dz-aliv[data-gid="'+gid+'"]');
+    if(inp)inp.value=frase;
+    mostrarToast('Sugestão aplicada. Edite se quiser.');
+  };});
+  document.querySelectorAll('#dzP3 [data-gsolta]').forEach(b=>{b.onclick=()=>dzSoltar(b.dataset.gsolta);});
+  document.querySelectorAll('#dzP3 [data-grem]').forEach(b=>{b.onclick=()=>{const dd=dzFind();dd.gravetos=dd.gravetos.filter(x=>x.id!==b.dataset.grem);salva();dzRender();};});
+  document.querySelectorAll('#dzP3 [data-nao-destrava]').forEach(b=>{b.onclick=()=>{
+    const el=document.querySelector('#dzP3 .dz-menor-passo');
+    if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+  };});
+  const btnMenorAdd=$('dzMenorAdd');
+  if(btnMenorAdd)btnMenorAdd.onclick=()=>{
+    const v=$('dzMenorTxt').value.trim();if(!v){avisar('Escreva a menor coisa possível.');return;}
+    const dd=dzFind();if(!dd)return;
+    dd.menorPasso={texto:v,criadoEm:hoje()};dzMenorEditando=false;salva();
+    confete(['🌱','✨','💫']);dzRender();
+  };
+  const inpMenorTxt=$('dzMenorTxt');
+  if(inpMenorTxt)inpMenorTxt.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();if(btnMenorAdd)btnMenorAdd.click();}};
+  const btnMenorEditar=$('dzEditarMenor');
+  if(btnMenorEditar)btnMenorEditar.onclick=()=>{
+    const dd=dzFind();if(!dd)return;
+    const txt=dd.menorPasso?dd.menorPasso.texto:'';
+    dzMenorEditando=true;dzRender();
+    setTimeout(()=>{const inp=$('dzMenorTxt');if(inp){inp.value=txt;inp.focus();}},80);
+  };
   $('dzProvas').onclick=()=>{fecharDesejo();setTimeout(()=>trocaAba('celebrar'),340);};
+  $('dzEvAdd').onclick=()=>{dzAddEvidencia($('dzEvTxt').value);};
+  $('dzEvTxt').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();dzAddEvidencia($('dzEvTxt').value);}};
+  document.querySelectorAll('#dzP3 [data-ev-rm]').forEach(b=>{b.onclick=()=>dzRemEvidencia(b.dataset.evRm);});
 }
 function dzSensacao(v){
   const d=dzFind();if(!d)return;
@@ -1983,12 +2182,12 @@ function dzSoltar(id){
   const g=(d.gravetos||[]).find(x=>x.id===id);if(!g)return;
   const inp=document.querySelector('#dzP3 .dz-aliv[data-gid="'+id+'"]');
   const v=inp?inp.value.trim():(g.alivio||'');
-  if(!v){avisar('Escreva uma frase de alívio antes de soltar o graveto.');return;}
+  if(!v){avisar('Escreva o que você se permite acreditar, ou toque numa sugestão.');return;}
   g.alivio=v;g.solto=true;g.soltoEm=hoje();
   const abertos=d.gravetos.filter(x=>!x.solto).length;
   if(!abertos&&d.sensacao==='duvida')d.sensacao=null;
   salva();confete(['🍃','✨','💫']);dzRender();
-  if(!abertos)mostrarToast('Último graveto solto! Releia sua declaração: ela soa melhor agora?');
+  if(!abertos)mostrarToast('Última dúvida trabalhada! Releia sua declaração: ela soa melhor agora?');
 }
 function dzNotarHoje(){
   const d=dzFind();if(!d)return;
@@ -1996,8 +2195,7 @@ function dzNotarHoje(){
   if(!d.diasNotados)d.diasNotados={};
   if(d.diasNotados[h]){delete d.diasNotados[h];salva();dzRender();return;}
   d.diasNotados[h]=true;salva();
-  confete(['🔭','✨','💫']);
-  dzRender();
+  confete(['🔭','✨','💫']);dzRender();
   const n=contarDias7(d);
   if(n===3)mostrarToast('3 dias notando. O desejo está ficando visível.');
   else if(n===7)mostrarToast('Uma semana inteira prestando atenção. Isso muda o olhar.');
@@ -2015,6 +2213,19 @@ function dzRemNota(id){
   d.notas=(d.notas||[]).filter(n=>n.id!==id);
   salva();dzRender();
 }
+function dzAddEvidencia(txt){
+  const d=dzFind();if(!d)return;
+  const v=(txt||'').trim();if(!v)return;
+  if(!Array.isArray(d.evidencias))d.evidencias=[];
+  d.evidencias.push({id:'e'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),texto:v,data:hoje()});
+  salva();dzRender();
+  const inp=$('dzEvTxt');if(inp)inp.focus();
+}
+function dzRemEvidencia(id){
+  const d=dzFind();if(!d)return;
+  d.evidencias=(d.evidencias||[]).filter(e=>e.id!==id);
+  salva();dzRender();
+}
 function dzLembrete(){
   const d=dzFind();if(!d)return;
   dzSalvaCampos();
@@ -2027,11 +2238,12 @@ function dzLembrete(){
   mostrarToast('Lembrete criado para '+hora+' ✓');
 }
 function abrirDesejo(id){
-  dzAtual=id;dzRender();
+  dzAtual=id;dzMenorEditando=false;dzRender();
   const o=$('desejoModal');o.hidden=false;requestAnimationFrame(()=>o.classList.add('ativo'));
   document.body.style.overflow='hidden';o.querySelector('.modal-caixa').scrollTop=0;
 }
 function fecharDesejo(){
+  dzMenorEditando=false;
   dzSalvaCampos();
   const o=$('desejoModal');o.classList.remove('ativo');
   setTimeout(()=>{o.hidden=true;document.body.style.overflow='';dzAtual=null;renderLA();},320);
@@ -2402,7 +2614,7 @@ function renderCelebrar(){
   renderPremios();
   $('cqLista').innerHTML=S.conquistas.itens.map((c,i)=>`<div class="lista-item"><div class="txt">${esc(c.txt)} <span class="mut">· ${esc(c.quando)}</span></div><div class="acoes"><button class="btn fant" data-cqarq="${i}">📥</button><button class="btn fant" data-cq="${i}">×</button></div></div>`).join('');
   document.querySelectorAll('#cqLista [data-cq]').forEach(b=>{b.onclick=()=>{confirmar('Apagar essa conquista?',()=>{S.conquistas.itens.splice(+b.dataset.cq,1);salva();renderCelebrar();},'Apagar');};});
-  document.querySelectorAll('#cqLista [data-cqarq]').forEach(b=>{b.onclick=()=>{const item=S.conquistas.itens.splice(+b.dataset.cq,1)[0];if(item){item.arquivadaEm=hoje();S.conquistas.arquivadas.push(item);salva();renderCelebrar();}};});
+  document.querySelectorAll('#cqLista [data-cqarq]').forEach(b=>{b.onclick=()=>{const item=S.conquistas.itens.splice(+b.dataset.cqarq,1)[0];if(item){item.arquivadaEm=hoje();S.conquistas.arquivadas.push(item);salva();renderCelebrar();}};});
   const arq=S.conquistas.arquivadas||[];
   $('cqArquivadas').innerHTML=arq.length?`<details class="generic"><summary>📦 Conquistas arquivadas (${arq.length})</summary><div class="conteudo">${arq.map((c,i)=>`<div class="lista-item"><div class="txt">${esc(c.txt)} <span class="tag arquivada">arquivada</span></div><div class="acoes"><button class="btn fant" data-cqvolta="${i}">↩</button><button class="btn fant" data-cqx="${i}">×</button></div></div>`).join('')}</div></details>`:'';
   document.querySelectorAll('#cqArquivadas [data-cqvolta]').forEach(b=>{b.onclick=()=>{const item=arq.splice(+b.dataset.cqvolta,1)[0];if(item){delete item.arquivadaEm;S.conquistas.itens.unshift(item);salva();renderCelebrar();}};});
@@ -2470,18 +2682,23 @@ $('btnExportar').onclick=()=>exportarBackup();
 $('btnImportar').onclick=()=>$('fileBackup').click();
 $('fileBackup').onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{try{let d=JSON.parse(ev.target.result);
 if(d&&d.cifrado){const f=prompt('Este backup é protegido. Digite sua frase-senha:');if(!f)return;if(!window.DIVAcripto){avisar('Não consegui carregar a parte de segurança. Tente de novo.');return;}try{d=JSON.parse(await window.DIVAcripto.abrirBackup(d,f));}catch(e){avisar('Frase-senha incorreta.');return;}}
-confirmar('Substituir seus dados atuais pelo backup?',()=>{S=garanteNovosCampos(d);salva();avisar('Backup restaurado 💛',()=>location.reload());},'Substituir');}catch(err){avisar('Arquivo inválido.');}};r.readAsText(file);};
+if(!d||typeof d!=='object'||Array.isArray(d)||!Array.isArray(d.habitos)||!Array.isArray(d.premios)||!d.checkins||typeof d.checkins!=='object'||Array.isArray(d.checkins))throw new Error('Backup inválido');
+d=garanteNovosCampos(d);
+confirmar('Substituir seus dados atuais pelo backup?',()=>{S=d;salva();avisar('Backup restaurado 💛',()=>location.reload());},'Substituir');}catch(err){avisar('Arquivo inválido.');}};r.readAsText(file);};
 function trocaAba(t){
   document.querySelectorAll('section[id^="tab-"]').forEach(s=>s.hidden=(s.id!=='tab-'+t));
   document.querySelectorAll('.tabs-bar button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
   if(t==='hoje')renderHoje();
-  if(t==='diario'){atualizaStatusCheckin();renderCheckinResumos();atualizaRelatorio();renderDiario();}
+  if(t==='diario'){montaCheckin();atualizaStatusCheckin();renderCheckinResumos();atualizaRelatorio();renderDiario();}
   if(t==='mapa')renderCiclo();
   if(t==='celebrar')renderCelebrar();
   if(t==='atracao'){renderLA();$('metasViagemBox').innerHTML=METAS_VIAGEM_REF.map(m=>`<div class="meta-bloco"><div class="num-lbl">${esc(m.num)}</div><div class="tit">${esc(m.tit)}</div><div class="desc">${esc(m.desc)}</div></div>`).join('');}
   window.scrollTo({top:0,behavior:'instant'});
 }
 document.querySelectorAll('.tabs-bar button').forEach(b=>{b.onclick=()=>trocaAba(b.dataset.tab);});
+function atualizaDiaCheckin(){if(ciMontado!==hoje()){montaCheckin();renderHoje();atualizaStatusCheckin();renderCheckinResumos();renderDiario();}}
+window.addEventListener('focus',atualizaDiaCheckin);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)atualizaDiaCheckin();});
 $('btnGerenciar').onclick=()=>{const b=$('gerenciarBox');b.hidden=!b.hidden;$('btnGerenciar').textContent=b.hidden?'🌱 Gerenciar hábitos':'🙈 Esconder hábitos';if(!b.hidden)renderHabitos();};
 let festaAnim=null;
 function iniciarFogos(canvas){
@@ -2508,6 +2725,24 @@ function abrirFesta(hb){
   $('festaResortear').onclick=()=>{const l=filtraPremios().filter(p=>p.id!==(festaBonusAtual?.id));if(!l.length)return;festaBonusAtual=l[Math.floor(Math.random()*l.length)];atualizarBonusFesta();confete(['🎁','✨','💫']);};
 }
 function atualizarBonusFesta(){const b=festaBonusAtual;if(b){$('festaBonusNome').textContent=b.nome;$('festaBonusTag').textContent=b.onde+' · '+tamNome(b.tamanho)+(b.gratis?' · grátis':'');}else{$('festaBonusNome').textContent='Sem prêmios disponíveis';$('festaBonusTag').textContent='Adicione mais em Celebrar';}}
+
+/* Keyboard / visualViewport: keep toast above soft keyboard */
+(function(){
+  const toast=$('toast');
+  if(!toast||!window.visualViewport)return;
+  function reposicionar(){
+    const vv=window.visualViewport;
+    const keyboardOpen=vv.height < window.innerHeight * 0.75;
+    if(keyboardOpen){
+      const bottomGap=window.innerHeight - (vv.offsetTop + vv.height);
+      toast.style.bottom=(bottomGap + 12)+'px';
+    } else {
+      toast.style.bottom='';
+    }
+  }
+  window.visualViewport.addEventListener('resize',reposicionar);
+  window.visualViewport.addEventListener('scroll',reposicionar);
+})();
 
 /* INIT */
 montaCheckin();
