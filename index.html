@@ -176,31 +176,11 @@ details.generic .conteudo{padding:0 14px 14px}
 .modal-btn.prim{background:linear-gradient(135deg,var(--b),var(--r));color:#fff;border-color:transparent;box-shadow:0 8px 22px rgba(143,128,209,.45)}
 .modal-campo{text-align:left;margin-bottom:12px}
 .modal-campo label{display:block;font-size:11.5px;font-weight:700;color:var(--mut);margin-bottom:5px;text-transform:uppercase;letter-spacing:.8px}
-.termo-nums{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px}
-.termo-num{aspect-ratio:1;border-radius:10px;border:1px solid var(--borda);background:var(--surf-mid);font-family:inherit;font-weight:800;font-size:15px;color:var(--mut);cursor:pointer;padding:0;transition:all .14s}
-.termo-num.on{background:var(--b);color:#fff;border-color:var(--b);transform:scale(1.10)}
-.termo-cmts{text-align:left;margin-top:6px}
-.termo-cmt{font-size:13px;line-height:1.55;padding:10px 12px;border-radius:10px;margin-bottom:8px;background:rgba(143,128,209,.14);border-left:3px solid var(--b);animation:aparece .35s ease}
-.termo-cmt:last-child{margin-bottom:0}
-.termo-cmt .lbl{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;font-weight:800;color:var(--b);display:block;margin-bottom:3px}
-.la-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.la-col-tit{font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--mut2);margin-bottom:5px}
-.la-col-tit.contraste{color:var(--r)}
-.la-col-tit.clareza{color:var(--b)}
 .la-item{background:var(--surf-mid);border:1px solid var(--borda);border-radius:9px;padding:7px 9px;margin-bottom:5px;font-size:12.5px;line-height:1.4;display:flex;justify-content:space-between;gap:6px;align-items:flex-start}
-.la-item .x{color:var(--mut2);cursor:pointer;font-size:14px;line-height:1;padding:0 2px}
-.la-item.clareza-item{cursor:pointer;transition:transform .12s,background .12s;position:relative}
-.la-item .nota{font-size:10px;font-weight:800;padding:2px 6px;border-radius:6px;background:rgba(143,128,209,.20);color:var(--b);min-width:22px;text-align:center}
-.la-item .nota.alta{background:rgba(110,168,122,.25);color:var(--ok)}
-.la-item .nota.baixa{background:rgba(201,138,90,.25);color:var(--aviso)}
-.la-add{background:transparent;border:1px dashed var(--borda);border-radius:9px;padding:6px 9px;font-size:12px;color:var(--mut);width:100%;font-family:inherit;cursor:text;margin-top:2px}
 .desejo-bloco{background:var(--surf-mid);border:1px solid var(--borda);border-radius:12px;padding:10px 12px;margin-bottom:8px}
 .desejo-bloco .cab{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
 .desejo-bloco .nm{font-size:14px;font-weight:700;color:var(--txt);flex:1;line-height:1.35}
 .desejo-bloco .x{background:transparent;border:none;color:var(--mut2);cursor:pointer;font-size:16px;padding:0 4px;line-height:1}
-.desejo-bloco .proc{font-size:12.5px;color:var(--mut);background:rgba(143,128,209,.10);border-radius:8px;padding:7px 10px;border-left:2px solid var(--b);font-style:italic;cursor:text;min-height:32px}
-.desejo-bloco .proc:empty::before{content:'Estou em processo de...';color:var(--mut2);font-style:italic}
-.desejo-bloco .proc-hint{font-size:10.5px;color:var(--mut2);margin-top:4px;text-align:right}
 .meta-bloco{background:var(--surf-mid);border:1px solid var(--borda);border-radius:12px;padding:12px 14px;margin-bottom:8px}
 .meta-bloco .num-lbl{font-size:10px;font-weight:800;letter-spacing:2px;color:var(--b);margin-bottom:4px;text-transform:uppercase}
 .meta-bloco .tit{font-size:14.5px;font-weight:800;color:var(--txt);margin-bottom:4px}
@@ -298,7 +278,6 @@ details.generic .conteudo{padding:0 14px 14px}
 .rel-notas .n{font-size:13.5px;line-height:1.55;padding:8px 0;border-bottom:1px dashed var(--borda);color:var(--txt);font-family:Georgia,'Times New Roman',serif;font-style:italic}
 .rel-notas .n:last-child{border:none}
 .rel-notas .n .data{display:block;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--mut2);font-style:normal;margin-bottom:2px}
-
 .onb-overlay{position:fixed;inset:0;z-index:300;background:linear-gradient(160deg, var(--modal-1), var(--modal-2));opacity:0;pointer-events:none;transition:opacity .5s;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
 .onb-overlay.ativo{opacity:1;pointer-events:auto}
 .onb-caixa{max-width:480px;width:100%;margin:auto;animation:aparece .6s ease}
@@ -327,7 +306,6 @@ details.generic .conteudo{padding:0 14px 14px}
 .dz-area{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--r);margin-bottom:4px;text-align:left}
 .dz-trilha{display:flex;gap:4px;margin:10px 0 6px;font-size:10px;font-weight:700;color:var(--mut2)}
 .dz-trilha span{flex:1;text-align:center;padding:6px 2px;border-radius:10px;background:var(--surf-mid);cursor:pointer;transition:background .15s}
-.dz-trilha span:hover{background:rgba(143,128,209,.18)}
 .dz-trilha span.on{color:var(--txt);background:rgba(189,128,209,.28)}
 .dz-trilha span.ok{color:var(--txt)}
 .dz-passo{text-align:left;border-top:1px solid var(--borda);padding-top:12px;margin-top:12px;scroll-margin-top:12px}
@@ -391,8 +369,6 @@ details.generic .conteudo{padding:0 14px 14px}
 .dz-nova-nota input{flex:1;font-size:13px;padding:8px 10px}
 .dz-nova-nota button{background:var(--surf-strong);border:1px solid var(--borda);color:var(--txt);border-radius:10px;padding:0 14px;font-family:inherit;font-weight:800;font-size:15px;cursor:pointer;flex-shrink:0}
 .dz-badge-notas{font-size:10px;font-weight:800;color:var(--b);background:rgba(143,128,209,.18);padding:2px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
-
-/* Resumo semanal e mensal */
 .resumo-overlay{position:fixed;inset:0;z-index:250;background:var(--overlay);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:opacity .4s;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
 .resumo-overlay.ativo{opacity:1;pointer-events:auto}
 .resumo-caixa{background:linear-gradient(160deg,var(--modal-1),var(--modal-2));border:1px solid var(--modal-borda);border-radius:22px;max-width:460px;width:100%;max-height:88vh;max-height:88dvh;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,.5);transform:translateY(24px) scale(.95);transition:transform .45s cubic-bezier(.2,.9,.3,1.2);margin:auto}
@@ -437,7 +413,6 @@ details.generic .conteudo{padding:0 14px 14px}
 .rs-historico-item .per{font-size:12.5px;color:var(--txt);line-height:1.4}
 .rs-historico-vazio{text-align:center;padding:26px 14px;color:var(--mut);font-size:13px;font-style:italic}
 #listaHistorico{max-height:60vh;overflow-y:auto;text-align:left;margin:14px 0}
-
 @media print{
   body{background:#fff !important;color:#000 !important;padding:0 !important;background-image:none !important}
   body > *{display:none !important}
@@ -451,6 +426,138 @@ details.generic .conteudo{padding:0 14px 14px}
   .rel-pergunta,.rel-despedida,.rel-notas,.rs-frase{background:#f5f0fa !important;border-color:#c7b8e0 !important;page-break-inside:avoid}
   .rs-sec{page-break-inside:avoid}
   @page{margin:18mm 16mm}
+}
+
+/* ========== Mobile comfort overrides ========== */
+body{
+  padding-bottom:calc(86px + env(safe-area-inset-bottom,0px));
+  -webkit-overflow-scrolling:touch;
+}
+.wrap{padding:12px 16px 28px}
+.card{
+  padding:16px;
+  margin-bottom:12px;
+}
+.grupo-card,.ci-card,details.generic{
+  margin-bottom:12px;
+}
+.grupo-card summary,.ci-card summary,details.generic summary{
+  padding:14px 16px;
+  min-height:48px;
+}
+.grupo-card .grupo-conteudo,.ci-card .conteudo,details.generic .conteudo{
+  padding:0 16px 16px;
+}
+.hab{
+  padding:14px 16px;
+  margin-bottom:10px;
+}
+.lista-item,.premio,.dz-card,.cat-sugestao{
+  padding:12px 14px;
+  min-height:48px;
+}
+.bol{
+  min-height:100px;
+  padding:16px 12px;
+  -webkit-tap-highlight-color:transparent;
+}
+.bol .nm{font-size:13px}
+.bol .prog{font-size:11px;margin-top:4px}
+.bolinhas-grid{gap:14px}
+.chip{
+  min-height:38px;
+  padding:9px 14px;
+  font-size:13px;
+  display:inline-flex;
+  align-items:center;
+}
+.escala .num{
+  min-height:38px;
+  font-size:13px;
+  border-radius:10px;
+}
+.escala .nums{gap:5px}
+/* Reset: labels usam .num mas NÃO são botões da escala */
+.ciclo-topo .num,.dz-topo .num{
+  aspect-ratio:auto !important;
+  min-height:0 !important;
+  width:auto !important;
+  height:auto !important;
+  background:none !important;
+  border:none !important;
+  border-radius:0 !important;
+  cursor:default !important;
+  padding:0 !important;
+  box-shadow:none !important;
+  transform:none !important;
+}
+.btn{
+  min-height:44px;
+  padding:11px 16px;
+  font-size:14px;
+}
+.btn.fant{min-height:36px;padding:8px 10px}
+.tabs-bar button{
+  padding:11px 2px 13px;
+  font-size:10.5px;
+  letter-spacing:.15px;
+  gap:3px;
+}
+.tabs-bar button .ti{font-size:20px}
+.mut,.sub{font-size:13px}
+.frase{font-size:15px;line-height:1.55;padding:0 4px}
+.toast{
+  bottom:calc(86px + env(safe-area-inset-bottom,0px) + 8px);
+  max-width:calc(100% - 28px);
+  padding:13px 16px 13px 18px;
+  font-size:13.5px;
+}
+.modal-caixa{
+  padding:28px 20px 24px;
+  max-width:min(400px, calc(100vw - 24px));
+}
+.modal-caixa.alta{max-height:90dvh}
+.modal-btn{
+  min-height:48px;
+  padding:14px 16px;
+  font-size:14.5px;
+}
+.dz-passo{scroll-margin-top:20px}
+.dz-trilha span{
+  padding:8px 4px;
+  min-height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.ciclo-num,.seg-num{
+  min-height:40px;
+  font-size:13px;
+  border-radius:10px;
+}
+.ciclo-nums{gap:6px}
+.bol:active,.chip:active,.escala .num:active,.btn:active,
+.dz-card:active,.cat-sugestao:active,.ciclo-num:active,.seg-num:active,
+.modal-btn:active,.tabs-bar button:active{
+  transform:scale(.96);
+  transition:transform .1s ease;
+}
+@media (max-width:360px){
+  .bolinhas-grid{gap:10px}
+  .bol{min-height:88px;padding:12px 8px}
+  .bol .ic{font-size:30px}
+  .bol .nm{font-size:11.5px}
+  .bol .prog{font-size:10px}
+  .wrap{padding:10px 12px 24px}
+  h1{font-size:20px}
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --mut:#b8a8c8;
+    --mut2:#8e7e9e;
+  }
+  .dz-cont{background:rgba(167,155,224,.22)}
+  .mapa-dim .barra-mini{background:rgba(255,255,255,.10)}
 }
 </style>
 </head>
@@ -593,7 +700,6 @@ details.generic .conteudo{padding:0 14px 14px}
   <button data-tab="atracao"><span class="ti">💫</span>Atração</button>
 </nav>
 
-<!-- Onboarding -->
 <div class="onb-overlay" id="onbOverlay" hidden>
   <div class="onb-caixa" id="onbP1">
     <div class="onb-emoji">💄</div>
@@ -601,6 +707,7 @@ details.generic .conteudo{padding:0 14px 14px}
     <p class="onb-texto">Antes de começar, como você gosta de ser chamada?</p>
     <input class="onb-campo" id="onbNome" placeholder="Seu primeiro nome" autocomplete="off">
     <button class="onb-btn" id="onbBtn1">Continuar</button>
+    <button class="onb-btn sec" id="onbJaUso" type="button">Já uso em outro aparelho? Entrar com o Google</button>
   </div>
   <div class="onb-caixa" id="onbP2" hidden>
     <div class="onb-titulo" id="onbTit2">Vamos começar pequeno</div>
@@ -632,7 +739,6 @@ details.generic .conteudo{padding:0 14px 14px}
   </div>
 </div>
 
-<!-- Popup 3 dias completos -->
 <div class="modal-overlay" id="tresDiasModal" hidden>
   <div class="modal-caixa">
     <div class="modal-emoji">🎉</div>
@@ -645,7 +751,6 @@ details.generic .conteudo{padding:0 14px 14px}
   </div>
 </div>
 
-<!-- Remover/pausar hábito -->
 <div class="modal-overlay" id="removerModal" hidden>
   <div class="modal-caixa">
     <div class="modal-pergunta" id="removerTitulo">Esse hábito ainda faz sentido pra você?</div>
@@ -654,7 +759,6 @@ details.generic .conteudo{padding:0 14px 14px}
   </div>
 </div>
 
-<!-- Config -->
 <div class="modal-overlay" id="configModal" hidden>
   <div class="modal-caixa" style="text-align:left;max-width:440px">
     <div class="modal-pergunta" style="text-align:center;margin-bottom:16px">⚙️ Configurações</div>
@@ -687,7 +791,6 @@ details.generic .conteudo{padding:0 14px 14px}
   </div>
 </div>
 
-<!-- Histórico de resumos -->
 <div class="modal-overlay" id="historicoModal" hidden>
   <div class="modal-caixa" style="text-align:left;max-width:440px">
     <div class="modal-pergunta" style="text-align:center;margin-bottom:6px">📚 Histórico de resumos</div>
@@ -847,7 +950,11 @@ details.generic .conteudo{padding:0 14px 14px}
 
   /* ---- estado ---- */
   let user = null, chave = null, salt = null, timer = null, statusTxt = 'Desconectada';
+  let pausado = false; // true enquanto falta decidir qual lado vale: nada sobe para a nuvem
   const caminho = (parte) => `usuarios/${user.uid}/${parte}`;
+  // este aparelho já sincronizou com ESTA conta antes?
+  const vinculoOk = () => { try { return !!user && localStorage.getItem('divaVinculo') === user.uid; } catch (e) { return false; } };
+  const marcaVinculo = () => { try { if (user) localStorage.setItem('divaVinculo', user.uid); } catch (e) {} };
 
   function setStatus(t) {
     statusTxt = t;
@@ -855,12 +962,13 @@ details.generic .conteudo{padding:0 14px 14px}
   }
 
   async function enviaAgora() {
-    if (!chave || !user) return;
+    if (!chave || !user || pausado) return;
     try {
       let t = localStorage.getItem('divaT');
       if (!t) { t = new Date().toISOString(); localStorage.setItem('divaT', t); }
       const c = await cifra(chave, JSON.stringify(window.DIVA.getEstado()));
       await set(ref(db, caminho('estado')), { v: 1, iv: c.iv, ct: c.ct, t });
+      marcaVinculo();
       setStatus('☁️ Sincronizada');
     } catch (e) {
       console.error('Erro ao sincronizar:', e);
@@ -871,34 +979,64 @@ details.generic .conteudo{padding:0 14px 14px}
   // chamada pelo app a cada salvamento
   window.salvarNoFirebase = function () {
     try { localStorage.setItem('divaT', new Date().toISOString()); } catch (e) {}
-    if (!chave || !user) return;
+    if (!chave || !user || pausado) return;
     setStatus('Sincronizando…');
     clearTimeout(timer);
     timer = setTimeout(enviaAgora, 1500);
   };
 
+  // Pergunta qual lado vale quando há dados nos dois lugares. Nada sobe sem essa decisão.
+  function perguntaLado(motivo, usarNuvem, usarAparelho) {
+    garanteModal();
+    const campos = $('nvCampos'), botoes = $('nvBotoes');
+    campos.innerHTML = ''; botoes.innerHTML = ''; erro('');
+    $('nvTitulo').textContent = '☁️ Dados em dois lugares';
+    $('nvTexto').textContent = motivo === 'nuvem-mais-nova'
+      ? 'Encontrei dados mais novos na nuvem do que os deste aparelho. Qual versão você quer manter? A outra será substituída.'
+      : 'Esta conta já tem dados na nuvem, e este aparelho também tem os seus. Qual versão você quer manter? A outra será substituída.';
+    botoes.append(
+      botao('Usar os dados da nuvem', 'prim', usarNuvem),
+      botao('Manter os deste aparelho', 'sec', usarAparelho),
+      botao('Decidir depois', 'sec', () => { setStatus('Sincronização pausada: escolha em ⚙️ → Sincronização'); fecha(); })
+    );
+    abre();
+  }
+
   async function sincronizaInicial() {
     setStatus('Sincronizando…');
+    pausado = true; // nada sobe até sabermos o que há na nuvem e o que o usuário prefere
     try {
       const snap = await get(ref(db, caminho('estado')));
-      if (!snap.exists()) { await enviaAgora(); return; }
+      if (!snap.exists()) { pausado = false; await enviaAgora(); return; }
       const r = snap.val();
       const localT = localStorage.getItem('divaT') || '';
-      if (r.t === localT) { setStatus('☁️ Sincronizada'); return; }
-      if (r.t > localT) {
-        const remoto = JSON.parse(await decifra(chave, r));
-        const aplicar = () => { window.DIVA.setEstado(remoto); localStorage.setItem('divaT', r.t); location.reload(); };
-        const temLocal = window.DIVA.getEstado().onboarding && window.DIVA.getEstado().onboarding.feito;
-        if (temLocal) {
-          setStatus('Encontrei dados mais novos na nuvem');
-          window.DIVA.confirmar('Encontrei dados mais novos na nuvem. Usar eles neste aparelho?', aplicar, 'Usar da nuvem');
-        } else aplicar();
-      } else {
+      if (r.t === localT) { marcaVinculo(); pausado = false; setStatus('☁️ Sincronizada'); return; }
+
+      const remoto = JSON.parse(await decifra(chave, r)); // também confere a frase-senha
+      const est = window.DIVA.getEstado();
+      const temLocal = !!(est.onboarding && est.onboarding.feito);
+
+      const usarNuvem = () => {
+        window.DIVA.setEstado(remoto);
+        try { localStorage.setItem('divaT', r.t); } catch (e) {}
+        marcaVinculo(); pausado = false;
+        location.reload();
+      };
+      const usarAparelho = async () => {
+        try { localStorage.setItem('divaT', new Date().toISOString()); } catch (e) {}
+        pausado = false;
+        fecha();
         await enviaAgora();
-      }
+      };
+
+      if (!temLocal) { usarNuvem(); return; }                       // aparelho novo: só traz o que já existe
+      if (vinculoOk() && r.t <= localT) { await usarAparelho(); return; } // este aparelho é o mais recente: sobe normalmente
+      perguntaLado(vinculoOk() ? 'nuvem-mais-nova' : 'primeira-vez', usarNuvem, usarAparelho);
     } catch (e) {
+      // continua pausado de propósito: se não deu para ler a nuvem, nada pode sobrescrevê-la
       console.error(e);
-      setStatus('Não consegui ler a nuvem (frase-senha diferente da usada antes?)');
+      setStatus('Não consegui ler a nuvem. Sincronização pausada para não sobrescrever seus dados.');
+      try { garanteModal(); erro('Não consegui ler os dados da nuvem. Nada foi alterado.'); } catch (e2) {}
     }
   }
 
@@ -963,6 +1101,7 @@ details.generic .conteudo{padding:0 14px 14px}
     modal = document.createElement('div');
     modal.className = 'modal-overlay';
     modal.id = 'nuvemModal';
+    modal.style.zIndex = '400'; // acima do onboarding (300), para o login aparecer na primeira tela
     modal.hidden = true;
     modal.innerHTML = '<div class="modal-caixa" style="text-align:left;max-width:420px"><div class="modal-pergunta" id="nvTitulo" style="text-align:center"></div><p class="mut" id="nvTexto" style="font-size:13px;line-height:1.6;margin-bottom:14px"></p><div id="nvCampos" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px"></div><p id="nvErro" style="font-size:12.5px;color:#c0392b;min-height:16px;margin-bottom:8px"></p><div id="nvBotoes" style="display:flex;flex-direction:column;gap:8px"></div></div>';
     document.body.appendChild(modal);
@@ -1019,7 +1158,7 @@ details.generic .conteudo{padding:0 14px 14px}
         campos.append(campo('nvFrase', 'password', 'Frase-senha', 'off'));
         botoes.append(botao('Desbloquear', 'prim', async () => {
           erro(''); const f = $('nvFrase').value; if (!f) { erro('Digite a frase-senha.'); return; }
-          try { await abreCofre(f, meta); fecha(); } catch (err) { erro(err.message === 'frase-errada' ? 'Frase-senha incorreta.' : 'Não consegui desbloquear. Tente de novo.'); }
+          try { await abreCofre(f, meta); if (!pausado) fecha(); } catch (err) { erro(err.message === 'frase-errada' ? 'Frase-senha incorreta.' : 'Não consegui desbloquear. Tente de novo.'); }
         }), sair);
       } else {
         $('nvTitulo').textContent = '🔑 Crie sua frase-senha';
@@ -1029,14 +1168,20 @@ details.generic .conteudo{padding:0 14px 14px}
           erro(''); const f = $('nvFrase').value, f2 = $('nvFrase2').value;
           if (f.length < 8) { erro('Use pelo menos 8 caracteres.'); return; }
           if (f !== f2) { erro('As duas frases não são iguais.'); return; }
-          try { await criaCofre(f); fecha(); } catch (err) { console.error(err); erro('Não consegui criar agora. Tente de novo.'); }
+          try { await criaCofre(f); if (!pausado) fecha(); } catch (err) { console.error(err); erro('Não consegui criar agora. Tente de novo.'); }
         }), sair);
       }
       abre(); return;
     }
 
+    if (pausado) {
+      $('nvTitulo').textContent = '☁️ Sincronização pausada';
+      $('nvTexto').textContent = 'Nada foi enviado para a nuvem ainda. Escolha qual versão dos dados vale, ou tente de novo.';
+      botoes.append(botao('Escolher agora', 'prim', async () => { await sincronizaInicial(); if (!pausado) fecha(); }), botao('Fechar', 'sec', fecha));
+      abre(); return;
+    }
     $('nvTitulo').textContent = '☁️ Tudo certo';
-    $('nvTexto').textContent = 'Seus dados estão sendo guardados na nuvem, embaralhados. Em outro aparelho, entre com o mesmo e-mail e a mesma frase-senha.';
+    $('nvTexto').textContent = 'Seus dados estão sendo guardados na nuvem, embaralhados. Em outro aparelho, entre com a mesma conta Google e a mesma frase-senha.';
     botoes.append(botao('Fechar', 'prim', fecha), botao('Sair desta conta', 'sec', async () => { await sair_(); }));
     abre();
   }
@@ -1068,9 +1213,10 @@ details.generic .conteudo{padding:0 14px 14px}
 
   const btn = $('btnNuvem');
   if (btn) btn.onclick = () => { try { localStorage.removeItem('divaAdiar'); } catch (e) {} mostraNuvem(); };
+  // permite abrir o login a partir de outras telas (ex.: primeira tela do onboarding)
+  window.DIVAnuvem = { abrir: () => { try { localStorage.removeItem('divaAdiar'); } catch (e) {} mostraNuvem(); } };
   setStatus(statusTxt);
 </script>
-<!-- Resumo semanal/mensal -->
 <div class="resumo-overlay" id="resumoSemanal" hidden>
   <div class="resumo-caixa" id="resumoCaixa">
     <div class="rs-topo" id="rsTopo">
@@ -1088,7 +1234,7 @@ details.generic .conteudo{padding:0 14px 14px}
 </div>
 
 <script>
-/* ============ BANCO ============ */
+/* ============ BANCO DE RELATÓRIO (BANCO) ============ */
 const BANCO = {
   polaridade:{sobrecarga:'negativa',ansiedade:'negativa',energia:'positiva',prazer:'positiva',autopercepcao:'positiva',regulacao:'positiva',direcao:'positiva',conexao:'positiva',corpo:'positiva'},
   relatorio:{abertura:{leve:["Fechamos mais um ciclo de 21 dias, e o retrato que saiu é de uma fase com recursos e pouco peso.","Este ciclo termina com um quadro generoso: boa parte do que você precisa está funcionando e pouca coisa está pesando."],dando_conta:["Este ciclo mostra uma pessoa com recursos de sobra carregando muita coisa. Você está dando conta, e o resultado diz também o que isso custa.","O retrato dos últimos 21 dias é de quem tem fôlego e está sendo muito exigida. Vamos olhar o que sustenta e o que pesa."],no_limite:["Foram 21 dias puxados, e o retrato é honesto sobre isso: pouco recurso disponível e muito peso em cima.","O ciclo que fechou foi duro. Os números mostram pouco fôlego e muita demanda, e você não precisa embelezar isso."],quieta:["Foram 21 dias de pouca pressão e pouco impulso. Uma fase mais quieta, em que o mais útil é olhar com calma o que está faltando.","Este ciclo mostra baixa demanda e baixa energia. Não é crise, é um tempo de silêncio que pede atenção."],equilibrada:["O retrato destes 21 dias é de meio-termo: nada estourando, nada sobrando. Os detalhes é que contam a história.","Ciclo de médias, sem extremos gritando. As diferenças pequenas é que mostram pra onde você está indo."]},abertura_primeira:{leve:"Este é o primeiro retrato, e ele mostra uma fase com recursos e pouco peso. Ainda não há mudança pra comparar, só um ponto de partida.",dando_conta:"Este é o primeiro retrato: muito fôlego e muita coisa pesando ao mesmo tempo. Ainda não há mudança pra comparar, só um ponto de partida.",no_limite:"Este é o primeiro retrato, e ele mostra uma fase dura, com pouco fôlego e muito peso. Ainda não há mudança pra comparar, só um ponto de partida.",quieta:"Este é o primeiro retrato: uma fase quieta, de pouca pressão e pouco impulso. Ainda não há mudança pra comparar, só um ponto de partida.",equilibrada:"Este é o primeiro retrato: um meio-termo, sem extremos. Ainda não há mudança pra comparar, só um ponto de partida."},despedida:{melhorou:["Olha o caminho que você fez em 21 dias. Nada disso aconteceu sozinho: foi você, escolhendo, mesmo nos dias em que parecia que não estava adiantando. Leva isso com você, e daqui a três semanas a gente olha de novo, com curiosidade.","Tem coisa boa se movendo aí dentro, e eu queria que você sentisse o orgulho que isso merece. Não precisa acelerar nada: o que cresce devagar costuma ficar. Vai com calma e com a cabeça erguida até o próximo ciclo.","O que melhorou é prova de que você muda quando cuida, e isso vale muito mais que qualquer nota. Guarda este retrato como lembrete pros dias mais cinzas. A gente se encontra no próximo ciclo."],estavel:["Manter-se firme também é movimento, mesmo quando não aparece no gráfico. Você segurou o que precisava segurar, e ainda tem espaço pra escolher o que quer mudar. No próximo ciclo a gente olha de novo, com calma.","Nada se moveu muito, e tudo bem: nem todo ciclo precisa ser uma virada. Alguns existem pra firmar o chão antes do próximo passo. Cuida dele, e a gente se encontra daqui a 21 dias.","Um retrato estável diz que você tem uma base, e base é o que permite subir depois. Segue no seu ritmo, que o próximo ciclo mostra pra onde ela te leva."],piorou:["Foi um ciclo mais difícil, e isso não define o próximo nem apaga o que você já construiu. Retratos são fotografias de um período, e não sentenças. Cuida do básico agora, e daqui a 21 dias a gente olha de novo, com a mesma gentileza.","O que caiu pode voltar a subir, e o fato de você ter olhado pra isso com honestidade já é um movimento. Escolhe uma coisa pequena pra cuidar e deixa o resto descansar. Você não precisa dar conta de tudo antes do próximo retrato.","Ciclos duros passam e quase sempre deixam algo aprendido. Você chegou até aqui, e isso diz muito sobre a sua força. Vai com calma, e a gente se encontra no próximo ciclo."],primeira:["Agora você tem um ponto de partida, e isso já é mais do que muita gente tem. Daqui a 21 dias a gente olha de novo, e é aí que a história começa a aparecer. Parabéns por ter olhado com honestidade pra si.","Primeiro retrato feito. Olhar pra si com honestidade é a parte mais difícil de qualquer mudança, e você acabou de fazer isso. O resto é repetir com curiosidade, sem nota e sem julgamento.","Você começou, e começar é o que mais conta. O que aparece daqui pra frente é só você se conhecendo melhor, ciclo a ciclo. A gente se encontra daqui a 21 dias."],no_limite:["Quando a fase é pesada, o menor passo já conta, e olhar pra isso hoje foi um passo. Você não precisa resolver nada agora, e pedir ajuda faz parte da força. Se o peso ficar demais antes do próximo ciclo, falar com alguém de confiança ou ligar pro CVV, no 188, a qualquer hora e de graça, é um ótimo caminho. Fases assim mudam com o tempo e com apoio, e você não está sozinha nisso.","Esta fase é difícil, e você teve coragem de olhar pra ela. Uma coisa pequena de cada vez já basta, e não precisa ser sozinha. O CVV atende pelo 188, a qualquer hora e de graça, se o peso ficar demais antes do próximo ciclo. Fases assim mudam com o tempo e com apoio, e você merece os dois."]},ponte_pergunta:["Pra fechar, uma pergunta pra levar:","Antes de terminar, fica uma pergunta:"]},
@@ -1322,16 +1468,19 @@ function sugerirPermissoes(texto){
   return{categoria:null,frases:SUGESTOES_GENERICAS.slice()};
 }
 
+/* ============ ESTADO INICIAL ============ */
 function estadoInicial(){
   return{
     versao:20,
     iniciadoEm:fmtD(new Date()),
-    onboarding:{ feito:false, nome:'' },
+    onboarding:{feito:false,nome:''},
     habitos:[],
     proximoHabitoEm:null,
     ultimoConviteEm:null,
+    tresDiasJaMostradoEm:null,
     premios:PREMIOS_INICIAIS.map((p,i)=>({id:'p'+i+'_'+Math.random().toString(36).slice(2,6),nome:p[0],onde:p[1],tamanho:p[2],gratis:p[3],usado:false})),
     conquistas:{itens:[{txt:'Reformei a sala',quando:'3 anos',criadoEm:'2020-01-01'},{txt:'Comprei o piano',quando:'3 anos',criadoEm:'2020-01-01'},{txt:'Saí da casa',quando:'3 anos',criadoEm:'2020-01-01'},{txt:'Emagreci',quando:'3 anos',criadoEm:'2020-01-01'},{txt:'Moro perto do metrô',quando:'3 anos',criadoEm:'2020-01-01'},{txt:'Caminho para o imóvel próprio',quando:'3 anos',criadoEm:'2020-01-01'},{txt:'Gravei a música com a câmera',quando:'leonina',criadoEm:'2020-01-01'},{txt:'Ousei fazer 2 takes',quando:'leonina',criadoEm:'2020-01-01'},{txt:'Abri a empresa em 31/07',quando:'leonina',criadoEm:'2020-01-01'},{txt:'Gravei vídeo de peruca',quando:'leonina',criadoEm:'2020-01-01'},{txt:'Aprendi a mexer no zoom',quando:'leonina',criadoEm:'2020-01-01'},{txt:'Abri conta PJ',quando:'leonina',criadoEm:'2020-01-01'}],arquivadas:[],semanais:{}},
+    desejos:DESEJOS_INICIAIS.map(d=>({...d})),
     leiAtracao:{areas:AREAS_BASE(),desejos:DESEJOS_ATRACAO_INICIAIS(),legado:null,termometro:{},historico:[]},
     ciclo:{atual:null,historico:[],proximoEm:null,usados:{aberturas:[],despedidas:[]}},
     resumo:{ultimoEm:null,historico:[]},
@@ -1374,7 +1523,7 @@ function garanteNovosCampos(s){
   if(!Array.isArray(s.resumoMensal.historico))s.resumoMensal.historico=[];
   if(typeof s.ultimoAcesso==='undefined')s.ultimoAcesso=null;
   if(typeof s.ultimoLembreteSaude==='undefined')s.ultimoLembreteSaude=null;
-  // Retroativo: conquistas antigas ganham criadoEm
+  if(typeof s.tresDiasJaMostradoEm==='undefined')s.tresDiasJaMostradoEm=null;
   (s.conquistas.itens||[]).forEach(c=>{if(!c.criadoEm)c.criadoEm='2020-01-01';});
   (s.conquistas.arquivadas||[]).forEach(c=>{if(!c.criadoEm)c.criadoEm='2020-01-01';});
   if(s.ciclo&&s.ciclo.proximoEm&&s.ciclo.atual&&(!s.ciclo.atual.respostas||Object.keys(s.ciclo.atual.respostas).length===0)){s.ciclo.atual=null;s.ciclo.proximoEm=null;}
@@ -1382,25 +1531,7 @@ function garanteNovosCampos(s){
 }
 function carrega(){
   try{const raw=localStorage.getItem('batomRisadaV20');if(raw)return garanteNovosCampos(JSON.parse(raw));}catch(e){}
-  try{
-    const raw=localStorage.getItem('batomRisadaV19');
-    if(raw){
-      const s=garanteNovosCampos(JSON.parse(raw));
-      if(Array.isArray(s.habitos)){
-        s.habitos.forEach(h=>{
-          if(h.id==='batom') h.grupo='corpo';
-          if(h.id==='risada') h.grupo='mente';
-          if(h.id==='agua') h.grupo='corpo';
-        });
-        const pij=s.habitos.find(h=>h.id==='pijama');
-        if(pij && Object.keys(pij.feitos||{}).length===0){
-          s.habitos=s.habitos.filter(h=>h.id!=='pijama');
-        }
-      }
-      s.versao=20;
-      return s;
-    }
-  }catch(e){}
+  try{const raw=localStorage.getItem('batomRisadaV19');if(raw){const s=garanteNovosCampos(JSON.parse(raw));s.versao=20;return s;}}catch(e){}
   try{const raw=localStorage.getItem('batomRisadaV18');if(raw){const s=garanteNovosCampos(JSON.parse(raw));s.versao=20;return s;}}catch(e){}
   for(const v of [17,16,15,14,13,12,11,10,9,8,7,6,5,4]){
     try{const raw=localStorage.getItem('batomRisadaV'+v);if(raw){const s=garanteNovosCampos(JSON.parse(raw));s.versao=20;return s;}}catch(e){}
@@ -1435,50 +1566,42 @@ function iniciarOnboarding(){
 }
 function mostrarOnbPasso(p){
   [1,2,3,4,5].forEach(i=>$('onbP'+i).hidden=i!==p);
-  if(p===1){ setTimeout(()=>$('onbNome').focus(),200); }
-  if(p===2){ $('onbTit2').textContent=(S.onboarding.nome||'Ei')+', vamos começar pequeno'; }
-  if(p===5){ const n=S.onboarding.nome; $('onbTit5').textContent=n?('Tudo bem, '+n+'. No seu tempo.'):'Tudo bem. No seu tempo.'; }
-  if(p===3){ $('onbT3p1').textContent=(S.onboarding.nome||'Ei')+', antes de seguir, um pedido: não atropela.'; }
+  if(p===1)setTimeout(()=>$('onbNome').focus(),200);
+  if(p===2)$('onbTit2').textContent=(S.onboarding.nome||'Ei')+', vamos começar pequeno';
+  if(p===5){const n=S.onboarding.nome;$('onbTit5').textContent=n?('Tudo bem, '+n+'. No seu tempo.'):'Tudo bem. No seu tempo.';}
+  if(p===3)$('onbT3p1').textContent=(S.onboarding.nome||'Ei')+', antes de seguir, um pedido: não atropela.';
 }
 function finalizarOnboarding(){
   $('onbOverlay').classList.remove('ativo');
-  setTimeout(()=>{ $('onbOverlay').hidden=true; document.body.style.overflow=''; }, 500);
-  renderHoje();
-  setTimeout(avisosIniciais, 1200);
+  setTimeout(()=>{$('onbOverlay').hidden=true;document.body.style.overflow='';},500);
+  renderHoje();setTimeout(avisosIniciais,1200);
 }
-$('onbBtn1').onclick=()=>{
-  const nome=$('onbNome').value.trim();
-  if(!nome){ $('onbNome').focus(); return; }
-  S.onboarding.nome=nome; salva();
-  mostrarOnbPasso(2);
+$('onbBtn1').onclick=()=>{const nome=$('onbNome').value.trim();if(!nome){$('onbNome').focus();return;}S.onboarding.nome=nome;salva();mostrarOnbPasso(2);};
+$('onbNome').addEventListener('keydown',e=>{if(e.key==='Enter')$('onbBtn1').click();});
+$('onbJaUso').onclick=()=>{
+  if(window.DIVAnuvem){window.DIVAnuvem.abrir();}
+  else{const b=$('onbJaUso');b.textContent='Carregando… toque de novo em instantes';setTimeout(()=>{b.textContent='Já uso em outro aparelho? Entrar com o Google';},3000);}
 };
-$('onbNome').addEventListener('keydown',e=>{ if(e.key==='Enter') $('onbBtn1').click(); });
 $('onbBtn2').onclick=()=>{
-  if(!S.habitos.some(h=>h.id==='agua')){
-    S.habitos.push({id:'agua',emoji:'💧',emojis:['💧','🥤','✨'],nome:'Beber água ao acordar',paraQue:'Cuidar do meu bem-estar',unidade:'1 copo ao acordar',feitos:{},cor:'c4',grupo:'corpo'});
-  }
-  S.proximoHabitoEm=Date.now()+3*86400000;
-  salva();
-  mostrarOnbPasso(3);
+  if(!S.habitos.some(h=>h.id==='agua'))S.habitos.push({id:'agua',emoji:'💧',emojis:['💧','🥤','✨'],nome:'Beber água ao acordar',paraQue:'Cuidar do meu bem-estar',unidade:'1 copo ao acordar',feitos:{},cor:'c4',grupo:'corpo'});
+  S.proximoHabitoEm=Date.now()+3*86400000;salva();mostrarOnbPasso(3);
 };
-$('onbPular').onclick=()=>{ salva(); mostrarOnbPasso(5); };
-$('onbBtn5').onclick=()=>{ S.onboarding.feito=true; salva(); finalizarOnboarding(); };
+$('onbPular').onclick=()=>{salva();mostrarOnbPasso(5);};
+$('onbBtn5').onclick=()=>{S.onboarding.feito=true;salva();finalizarOnboarding();};
 $('onbBtn3').onclick=()=>{
-  S.onboarding.feito=true; salva();
+  S.onboarding.feito=true;salva();
   const nome=S.onboarding.nome||'';
   $('onbEmojiFim').textContent=S.habitos.some(h=>h.id==='agua')?'💧':'🌱';
   $('onbTitFim').textContent='Pronto'+(nome?', '+nome:'')+'!';
-  $('onbTextoFim').textContent=S.habitos.some(h=>h.id==='agua')
-    ? 'Sua primeira bolinha está na tela Hoje. Amanhã de manhã, antes de qualquer outra coisa, toque nela depois do primeiro copo de água. Daqui a 3 dias, seu próximo hábito chega. Até lá, a água é a única missão. 💧'
-    : 'Quando quiser, abra Gerenciar hábitos e escolha o primeiro. Sem pressa.';
+  $('onbTextoFim').textContent=S.habitos.some(h=>h.id==='agua')?'Sua primeira bolinha está na tela Hoje. Amanhã de manhã, antes de qualquer outra coisa, toque nela depois do primeiro copo de água. Daqui a 3 dias, seu próximo hábito chega. Até lá, a água é a única missão. 💧':'Quando quiser, abra Gerenciar hábitos e escolha o primeiro. Sem pressa.';
   mostrarOnbPasso(4);
 };
-$('onbBtnFim').onclick=()=>{ finalizarOnboarding(); };
+$('onbBtnFim').onclick=()=>{finalizarOnboarding();};
 
 /* ============ HOJE ============ */
 function renderHoje(){
   $('data').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
-  if(S.onboarding.nome) $('subSaudacao').textContent=S.onboarding.nome+', você está em processo de ficar bem.';
+  if(S.onboarding.nome)$('subSaudacao').textContent=S.onboarding.nome+', você está em processo de ficar bem.';
   const h=hoje();
   const ativos=S.habitos.filter(hb=>!hb.pausado);
   const mapaGrupos={};
@@ -1525,35 +1648,24 @@ function renderHoje(){
 function toggleHabito(id){
   const hb=S.habitos.find(x=>x.id===id);if(!hb)return;
   const h=hoje();
-  if(hb.feitos[h]){
-    confete(hb.emojis);
-    if(FRASES_HABITO[id]) mostrarFraseHabito(id); else frase();
-    mostrarToast('Marcado hoje ✓','Desmarcar',()=>desmarcarHabito(hb,h));
-    return;
-  }
-  hb.feitos[h]=true;
-  confete(hb.emojis);
-  if(FRASES_HABITO[id]) mostrarFraseHabito(id); else frase();
+  if(hb.feitos[h]){confete(hb.emojis);if(FRASES_HABITO[id])mostrarFraseHabito(id);else frase();mostrarToast('Marcado hoje ✓','Desmarcar',()=>desmarcarHabito(hb,h));return;}
+  hb.feitos[h]=true;confete(hb.emojis);
+  if(FRASES_HABITO[id])mostrarFraseHabito(id);else frase();
   const total=Object.keys(hb.feitos).length;
-  if(total>=21 && !hb.festejou21){ hb.festejou21=true; setTimeout(()=>abrirFesta(hb),550); }
-  salva(); renderHoje(); renderHabitos();
+  if(total>=21&&!hb.festejou21){hb.festejou21=true;setTimeout(()=>abrirFesta(hb),550);}
+  salva();renderHoje();renderHabitos();
   mostrarToast('Marcado ✓','Desfazer',()=>desmarcarHabito(hb,h));
   checarTresDias();
 }
-function desmarcarHabito(hb,h){
-  delete hb.feitos[h];
-  if(Object.keys(hb.feitos).length<21) hb.festejou21=false;
-  salva(); renderHoje(); renderHabitos();
-}
+function desmarcarHabito(hb,h){delete hb.feitos[h];if(Object.keys(hb.feitos).length<21)hb.festejou21=false;salva();renderHoje();renderHabitos();}
 function checarTresDias(){
-  // A4: checa QUALQUER hábito ativo que bateu 3 dias e o timer liberou
-  if(!habitoLiberado()) return;
-  if(S.ultimoConviteEm && hoje()<fmtD(addDias(new Date(S.ultimoConviteEm),3))) return;
+  if(!habitoLiberado())return;
+  if(S.ultimoConviteEm&&hoje()<fmtD(addDias(new Date(S.ultimoConviteEm),3)))return;
   const ativos=S.habitos.filter(x=>!x.pausado);
   const candidato=ativos.find(hb=>Object.keys(hb.feitos).length>=3);
-  if(!candidato) return;
-  if(S.tresDiasJaMostradoEm && S.tresDiasJaMostradoEm===hoje()) return;
-  setTimeout(()=>abrirTresDias(candidato), 900);
+  if(!candidato)return;
+  if(S.tresDiasJaMostradoEm===hoje())return;
+  setTimeout(()=>abrirTresDias(candidato),900);
 }
 let hbTresDias=null;
 function abrirTresDias(hb){
@@ -1561,24 +1673,20 @@ function abrirTresDias(hb){
   const nome=S.onboarding.nome||'amiga';
   $('tresDiasTitulo').textContent='3 dias, '+nome+'! 🎉';
   $('tresDiasTexto').innerHTML='Você completou 3 dias com <b>'+esc(hb.nome)+'</b>. Isso já conta como começo de verdade.<br><br>Quer trazer um hábito novo para a sua lista agora, ou prefere ficar mais um pouco só com o que já tem?';
-  $('tresDiasModal').hidden=false;
-  requestAnimationFrame(()=>$('tresDiasModal').classList.add('ativo'));
-  document.body.style.overflow='hidden';
+  $('tresDiasModal').hidden=false;requestAnimationFrame(()=>$('tresDiasModal').classList.add('ativo'));document.body.style.overflow='hidden';
   S.tresDiasJaMostradoEm=hoje();salva();
 }
 $('tresDiasSim').onclick=()=>{
-  S.ultimoConviteEm=Date.now(); salva();
+  S.ultimoConviteEm=Date.now();salva();
   $('tresDiasModal').classList.remove('ativo');
-  setTimeout(()=>{ $('tresDiasModal').hidden=true; document.body.style.overflow=''; }, 320);
-  $('gerenciarBox').hidden=false;
-  $('btnGerenciar').textContent='🙈 Esconder hábitos';
-  renderHabitos();
-  window.scrollTo({top:$('btnGerenciar').offsetTop-20,behavior:'smooth'});
+  setTimeout(()=>{$('tresDiasModal').hidden=true;document.body.style.overflow='';},320);
+  $('gerenciarBox').hidden=false;$('btnGerenciar').textContent='🙈 Esconder hábitos';
+  renderHabitos();window.scrollTo({top:$('btnGerenciar').offsetTop-20,behavior:'smooth'});
 };
 $('tresDiasNao').onclick=()=>{
-  S.ultimoConviteEm=Date.now(); salva();
+  S.ultimoConviteEm=Date.now();salva();
   $('tresDiasModal').classList.remove('ativo');
-  setTimeout(()=>{ $('tresDiasModal').hidden=true; document.body.style.overflow=''; }, 320);
+  setTimeout(()=>{$('tresDiasModal').hidden=true;document.body.style.overflow='';},320);
   const nome=S.onboarding.nome||'amiga';
   setTimeout(()=>avisar('Tudo bem, '+nome+'. Ficar mais tempo num hábito também é avançar. Em 3 dias eu pergunto de novo. 🌱'),350);
 };
@@ -1779,11 +1887,9 @@ function adicionarHabitoFila(item){
   const feitos=hist?{...hist.feitos}:{};
   const completo=Object.keys(feitos).length>=21;
   S.habitos.push({id:item.id||('h'+Date.now()),emoji:item.emoji,emojis:item.emojis||[item.emoji,'✨','🌸'],nome:item.nome,paraQue:item.paraQue||'-',unidade:item.unidade,feitos,cor:CORES[S.habitos.length%CORES.length],grupo:item.grupo||'outros',festejou21:completo,premioPego:hist?!!hist.premioPego:false});
-  if(hist) delete S.historicoRemovidos[item.nome];
-  S.proximoHabitoEm=Date.now()+3*86400000;
-  S.ultimoConviteEm=Date.now();
-  salva();confete([item.emoji,'✨','🌸']);
-  renderHoje();renderHabitos();
+  if(hist)delete S.historicoRemovidos[item.nome];
+  S.proximoHabitoEm=Date.now()+3*86400000;S.ultimoConviteEm=Date.now();
+  salva();confete([item.emoji,'✨','🌸']);renderHoje();renderHabitos();
 }
 function filaCompleta(){
   const base=FILA_CATEGORIAS;
@@ -1869,9 +1975,7 @@ function abrirRemover(hb){
     renderHabitos();renderHoje();
   };
   $('removerManter').onclick=fecharRemover;
-  $('removerModal').hidden=false;
-  requestAnimationFrame(()=>$('removerModal').classList.add('ativo'));
-  document.body.style.overflow='hidden';
+  $('removerModal').hidden=false;requestAnimationFrame(()=>$('removerModal').classList.add('ativo'));document.body.style.overflow='hidden';
 }
 function fecharRemover(){const o=$('removerModal');o.classList.remove('ativo');setTimeout(()=>{o.hidden=true;document.body.style.overflow='';},320);hbRemover=null;}
 
@@ -1899,22 +2003,17 @@ function mostrarPremioModal(premio){
   if(premioAnim)premioAnim.parar();premioAnim=iniciarFogos(canvas);confete(['🎁','✨','💛','💜']);
 }
 
-/* ============ ATRAÇÃO (método Losier: clareza, atenção, permitir) ============ */
+/* ============ ATRAÇÃO ============ */
 function contarDias7(d){
   if(!d||!d.diasNotados)return 0;
   let n=0;const agora=new Date();
-  for(let i=0;i<7;i++){
-    const dia=fmtD(addDias(agora,-i));
-    if(d.diasNotados[dia])n++;
-  }
+  for(let i=0;i<7;i++){const dia=fmtD(addDias(agora,-i));if(d.diasNotados[dia])n++;}
   return n;
 }
 function diasNotadosGlobal7(){
   const limite=fmtD(addDias(new Date(),-6));
   const setDias=new Set();
-  (S.leiAtracao.desejos||[]).forEach(d=>{
-    Object.keys(d.diasNotados||{}).forEach(dia=>{if(dia>=limite)setDias.add(dia);});
-  });
+  (S.leiAtracao.desejos||[]).forEach(d=>{Object.keys(d.diasNotados||{}).forEach(dia=>{if(dia>=limite)setDias.add(dia);});});
   return setDias.size;
 }
 function ultimaNotaGlobal(){
@@ -1932,7 +2031,7 @@ function renderAtracaoTopo(){
   const temNotas=ds.some(d=>(d.notas||[]).length>0);
   let html='<div class="dz-topo"><div class="tt">🔭 Atenção</div>';
   if(dias>0){
-    html+=`<div class="num">${dias} ${dias===1?'dia':'dias'} de 7</div>`;
+    html+=`<div class="num">Dia ${dias} de 7</div>`;
     html+='<div class="sub">em que você notou um desejo vivo. É assim que a atenção trabalha: notando o que você quer, e não o que falta.</div>';
   } else {
     html+='<div class="sub">Nada notado esta semana. O desejo continua ali, esperando atenção. Abra um e toque em <b>Notei hoje</b>.</div>';
@@ -1970,7 +2069,6 @@ function abrirHistoricoAtracao(){
   (S.leiAtracao.desejos||[]).forEach(d=>{(d.notas||[]).forEach(n=>todas.push({...n,desejo:d}));});
   todas.sort((a,b)=>(b.data||'').localeCompare(a.data||''));
   if(!todas.length){avisar('Ainda não tem notas. Elas aparecem quando você usa o "Notei hoje" ou escreve o que percebeu.');return;}
-  // Agrupar por mês
   const porMes={};
   todas.forEach(n=>{const mes=(n.data||'').slice(0,7);if(!porMes[mes])porMes[mes]=[];porMes[mes].push(n);});
   let html='';
@@ -1984,13 +2082,10 @@ function abrirHistoricoAtracao(){
     });
     html+='</div>';
   });
-  // Reutiliza o historicoModal
   $('listaHistorico').innerHTML=html;
-  $('historicoFechar').textContent='Fechar';
   $('historicoFechar').onclick=()=>{const o=$('historicoModal');o.classList.remove('ativo');setTimeout(()=>{o.hidden=true;document.body.style.overflow='';},320);};
   const o=$('historicoModal');o.hidden=false;requestAnimationFrame(()=>o.classList.add('ativo'));document.body.style.overflow='hidden';
 }
-
 function abrirContraste(){
   const o=$('contrasteModal');$('ctNaoQuero').value='';$('ctQuero').value='';
   $('ctArea').innerHTML=S.leiAtracao.areas.map(a=>`<option value="${esc(a.id)}">${esc(a.nome)}</option>`).join('');
@@ -2109,8 +2204,7 @@ function dzRender(){
       <div class="mut dz-dica" style="margin:0 0 6px">O que apareceu desde que você começou a querer isso? Anote — vale como prova de que está se movendo.</div>
       <div>${evs.map(e=>`<div class="dz-ev"><span class="data">${esc(e.data)}</span>${esc(e.texto)}<button class="x" data-ev-rm="${esc(e.id)}">×</button></div>`).join('')}</div>
       <div class="dz-nova-nota"><input id="dzEvTxt" placeholder="O que apareceu?"><button id="dzEvAdd">+</button></div>
-    </div>
-    <button class="btn btn-full" id="dzProvas">📖 Ver minhas provas (Conquistas)</button>`;
+    </div>`;
   const ta=$('dzDecl');
   ta.onblur=dzSalvaCampos;
   document.querySelectorAll('#dzP2 [data-ini]').forEach(b=>{b.onclick=()=>{const base=ta.value.replace(/^(Estou no processo de |Eu decidi |Muitas coisas podem acontecer para )/,'');ta.value=b.dataset.ini+base;ta.focus();};});
@@ -2156,7 +2250,6 @@ function dzRender(){
     dzMenorEditando=true;dzRender();
     setTimeout(()=>{const inp=$('dzMenorTxt');if(inp){inp.value=txt;inp.focus();}},80);
   };
-  $('dzProvas').onclick=()=>{fecharDesejo();setTimeout(()=>trocaAba('celebrar'),340);};
   $('dzEvAdd').onclick=()=>{dzAddEvidencia($('dzEvTxt').value);};
   $('dzEvTxt').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();dzAddEvidencia($('dzEvTxt').value);}};
   document.querySelectorAll('#dzP3 [data-ev-rm]').forEach(b=>{b.onclick=()=>dzRemEvidencia(b.dataset.evRm);});
@@ -2264,27 +2357,19 @@ function calcularResumo(inicio,fim){
   (S.habitos||[]).forEach(h=>{
     const todos=Object.keys(h.feitos||{});
     const noPeriodo=todos.filter(d=>d>=inicio&&d<=fim);
-    if(noPeriodo.length){
-      habitosMarc.push({nome:h.nome,emoji:h.emoji||'⭐',dias:noPeriodo.length});
-      totalMarc+=noPeriodo.length;
-    }
-    if(todos.length>=21) completaram21.push(h.nome);
+    if(noPeriodo.length){habitosMarc.push({nome:h.nome,emoji:h.emoji||'⭐',dias:noPeriodo.length});totalMarc+=noPeriodo.length;}
+    if(todos.length>=21)completaram21.push(h.nome);
   });
   habitosMarc.sort((a,b)=>b.dias-a.dias);
   const cis=Object.entries(S.checkins||{}).filter(([d])=>d>=inicio&&d<=fim);
   const diasCheckin=cis.length;
   let sonoTotal=0,diasSono=0,diasRefeicoes=0;
   cis.forEach(([,ci])=>{
-    if(ci.dormiu&&ci.acordou){
-      const horas=horasDormidas(ci.dormiu,ci.acordou);
-      const [h,m]=horas.split('h').map(Number);
-      sonoTotal+=h*60+(m||0);diasSono++;
-    }
+    if(ci.dormiu&&ci.acordou){const horas=horasDormidas(ci.dormiu,ci.acordou);const[h,m]=horas.split('h').map(Number);sonoTotal+=h*60+(m||0);diasSono++;}
     if((ci.refeicoes||[]).length>=2)diasRefeicoes++;
   });
   const mediaSonoMin=diasSono?Math.round(sonoTotal/diasSono):0;
-  const mediaSonoH=Math.floor(mediaSonoMin/60);
-  const mediaSonoM=mediaSonoMin%60;
+  const mediaSonoH=Math.floor(mediaSonoMin/60);const mediaSonoM=mediaSonoMin%60;
   let diasNotados=0,notasGuardadas=0,gravetosSolto=0;
   (S.leiAtracao.desejos||[]).forEach(d=>{
     diasNotados+=Object.keys(d.diasNotados||{}).filter(dia=>dia>=inicio&&dia<=fim).length;
@@ -2294,9 +2379,7 @@ function calcularResumo(inicio,fim){
   const conquistasNovas=(S.conquistas.itens||[]).filter(c=>c.criadoEm&&c.criadoEm>=inicio&&c.criadoEm<=fim);
   return{periodo,habitosMarc,totalMarc,completaram21,diasCheckin,mediaSonoH,mediaSonoM,diasRefeicoes,diasNotados,notasGuardadas,gravetosSolto,conquistasNovas};
 }
-function temDadosResumo(r){
-  return r.totalMarc>0||r.diasCheckin>0||r.diasNotados>0||r.notasGuardadas>0||r.gravetosSolto>0||r.conquistasNovas.length>0;
-}
+function temDadosResumo(r){return r.totalMarc>0||r.diasCheckin>0||r.diasNotados>0||r.notasGuardadas>0||r.gravetosSolto>0||r.conquistasNovas.length>0;}
 function fraseResumo(r,tipo){
   const score=r.totalMarc+r.diasCheckin*2+r.diasNotados*2+r.notasGuardadas+r.gravetosSolto*2+r.conquistasNovas.length*3;
   if(tipo==='mensal'){
@@ -2312,12 +2395,7 @@ function fraseResumo(r,tipo){
 }
 function comparacaoSemanal(atual,anterior){
   if(!anterior)return null;
-  const dif={
-    marc:atual.totalMarc-anterior.totalMarc,
-    checkin:atual.diasCheckin-anterior.diasCheckin,
-    notou:atual.diasNotados-anterior.diasNotados
-  };
-  // Só mostra se nenhuma métrica caiu (>=0)
+  const dif={marc:atual.totalMarc-anterior.totalMarc,checkin:atual.diasCheckin-anterior.diasCheckin,notou:atual.diasNotados-anterior.diasNotados};
   if(dif.marc<0||dif.checkin<0||dif.notou<0)return null;
   if(dif.marc===0&&dif.checkin===0&&dif.notou===0)return null;
   return dif;
@@ -2328,104 +2406,71 @@ function verificarResumoSemanal(){
   if(!S.iniciadoEm)S.iniciadoEm=hoje();
   if(!S.onboarding.feito)return;
   const agora=new Date();
-  const ehDia1 = agora.getDate()<=3;
-  // MENSAL primeiro: se é início do mês e já passou tempo
+  const ehDia1=agora.getDate()<=3;
   if(ehDia1){
     const baseM=S.resumoMensal.ultimoEm?fmtD(new Date(S.resumoMensal.ultimoEm)):S.iniciadoEm;
     const difDias=Math.round((new Date(hoje())-new Date(baseM))/86400000);
     if(difDias>=28){
-      const fim=fmtD(addDias(agora,-1));
-      const inicio=fmtD(addDias(agora,-30));
+      const fim=fmtD(addDias(agora,-1));const inicio=fmtD(addDias(agora,-30));
       const dados=calcularResumo(inicio,fim);
       if(temDadosResumo(dados)){
-        dados.frase=fraseResumo(dados,'mensal');
-        dados.mostradoEm=hoje();
+        dados.frase=fraseResumo(dados,'mensal');dados.mostradoEm=hoje();
         S.resumoMensal.historico.push(dados);
         if(S.resumoMensal.historico.length>6)S.resumoMensal.historico=S.resumoMensal.historico.slice(-6);
-        S.resumoMensal.ultimoEm=Date.now();
-        salva();
-        mostrarResumo(dados,'mensal');
-        return;
-      } else {
-        S.resumoMensal.ultimoEm=Date.now();salva();
-      }
+        S.resumoMensal.ultimoEm=Date.now();salva();mostrarResumo(dados,'mensal');return;
+      } else {S.resumoMensal.ultimoEm=Date.now();salva();}
     }
   }
-  // SEMANAL
   const base=S.resumo.ultimoEm?fmtD(new Date(S.resumo.ultimoEm)):S.iniciadoEm;
   const proximo=fmtD(addDias(new Date(base),7));
   if(hoje()<proximo)return;
-  const fim=fmtD(addDias(agora,-1));
-  const inicio=fmtD(addDias(agora,-7));
+  const fim=fmtD(addDias(agora,-1));const inicio=fmtD(addDias(agora,-7));
   const dados=calcularResumo(inicio,fim);
-  if(!temDadosResumo(dados)){
-    S.resumo.ultimoEm=Date.now();salva();return;
-  }
-  dados.frase=fraseResumo(dados,'semanal');
-  dados.mostradoEm=hoje();
-  // Comparação com a semana anterior (E4)
+  if(!temDadosResumo(dados)){S.resumo.ultimoEm=Date.now();salva();return;}
+  dados.frase=fraseResumo(dados,'semanal');dados.mostradoEm=hoje();
   const ant=S.resumo.historico.length?S.resumo.historico[S.resumo.historico.length-1]:null;
   dados.comparacao=comparacaoSemanal(dados,ant);
   S.resumo.historico.push(dados);
   if(S.resumo.historico.length>12)S.resumo.historico=S.resumo.historico.slice(-12);
-  S.resumo.ultimoEm=Date.now();
-  salva();
-  mostrarResumo(dados,'semanal');
+  S.resumo.ultimoEm=Date.now();salva();mostrarResumo(dados,'semanal');
 }
 function mostrarResumo(r,tipo){
   const ehMensal=tipo==='mensal';
   $('resumoCaixa').setAttribute('data-tipo',tipo);
   $('rsTitulo').textContent=ehMensal?'Seu mês':'Sua semana';
-  // Selo primeira semana (E1)
-  const primeira = !ehMensal && S.resumo.historico.length===1;
-  $('rsEmoji').textContent = primeira?'🌱':(ehMensal?'📅':'📊');
+  const primeira=!ehMensal&&S.resumo.historico.length===1;
+  $('rsEmoji').textContent=primeira?'🌱':(ehMensal?'📅':'📊');
   $('rsTopo').className='rs-topo'+(primeira?' primeira':'');
   $('rsPeriodo').textContent=fmtPeriodoBonito(r.periodo.inicio,r.periodo.fim);
   let html='';
   if(r.totalMarc>0){
     html+='<div class="rs-sec"><div class="lbl">🌱 Hábitos</div>';
     html+=`<p>Você marcou <b>${r.totalMarc} ${r.totalMarc===1?'vez':'vezes'}</b> neste período.</p>`;
-    if(r.habitosMarc.length){
-      html+='<ul class="rs-lista">';
-      r.habitosMarc.slice(0,ehMensal?6:4).forEach(h=>{
-        html+=`<li><span>${h.emoji} ${esc(h.nome)}</span><span>${h.dias}d</span></li>`;
-      });
-      html+='</ul>';
-    }
-    if(r.completaram21.length){
-      html+=`<p style="margin-top:10px">🎉 <b>${r.completaram21.length} hábito${r.completaram21.length===1?'':'s'}</b> na lista já bateu os 21 dias!</p>`;
-    }
+    if(r.habitosMarc.length){html+='<ul class="rs-lista">';r.habitosMarc.slice(0,ehMensal?6:4).forEach(h=>{html+=`<li><span>${h.emoji} ${esc(h.nome)}</span><span>${h.dias}d</span></li>`;});html+='</ul>';}
+    if(r.completaram21.length)html+=`<p style="margin-top:10px">🎉 <b>${r.completaram21.length} hábito${r.completaram21.length===1?'':'s'}</b> na lista já bateu os 21 dias!</p>`;
     html+='</div>';
   }
   if(r.diasCheckin>0){
     html+='<div class="rs-sec"><div class="lbl">📝 Check-in</div>';
     html+=`<p><b>${r.diasCheckin} dia${r.diasCheckin===1?'':'s'}</b> de check-in registrado${r.diasCheckin===1?'':'s'}.</p>`;
-    if(r.mediaSonoH>0){
-      html+=`<p>Média de sono: <b>${r.mediaSonoH}h${pad2(r.mediaSonoM)}</b>.</p>`;
-    }
-    if(r.diasRefeicoes>0){
-      html+=`<p>Você cuidou do corpo em <b>${r.diasRefeicoes} dia${r.diasRefeicoes===1?'':'s'}</b>.</p>`;
-    }
+    if(r.mediaSonoH>0)html+=`<p>Média de sono: <b>${r.mediaSonoH}h${pad2(r.mediaSonoM)}</b>.</p>`;
+    if(r.diasRefeicoes>0)html+=`<p>Você cuidou do corpo em <b>${r.diasRefeicoes} dia${r.diasRefeicoes===1?'':'s'}</b>.</p>`;
     html+='</div>';
   }
   if(r.diasNotados>0||r.notasGuardadas>0||r.gravetosSolto>0){
     html+='<div class="rs-sec"><div class="lbl">💫 Atração</div>';
     if(r.diasNotados>0)html+=`<p><b>${r.diasNotados} dia${r.diasNotados===1?'':'s'}</b> notando seus desejos.</p>`;
     if(r.notasGuardadas>0)html+=`<p><b>${r.notasGuardadas}</b> ${r.notasGuardadas===1?'nota guardada':'notas guardadas'}.</p>`;
-    if(r.gravetosSolto>0)html+=`<p>🍃 <b>${r.gravetosSolto}</b> graveto${r.gravetosSolto===1?'':'s'} solto${r.gravetosSolto===1?'':'s'}.</p>`;
+    if(r.gravetosSolto>0)html+=`<p>🍃 <b>${r.gravetosSolto}</b> dúvida${r.gravetosSolto===1?'':'s'} trabalhada${r.gravetosSolto===1?'':'s'}.</p>`;
     html+='</div>';
   }
   if(r.conquistasNovas.length>0){
     html+='<div class="rs-sec"><div class="lbl">🏆 Conquistas</div>';
-    html+=`<p>Você anotou <b>${r.conquistasNovas.length}</b>:</p>`;
-    html+='<ul class="rs-lista">';
-    r.conquistasNovas.slice(0,ehMensal?8:5).forEach(c=>{
-      html+=`<li><span>${esc(c.txt)}</span></li>`;
-    });
+    html+=`<p>Você anotou <b>${r.conquistasNovas.length}</b>:</p><ul class="rs-lista">`;
+    r.conquistasNovas.slice(0,ehMensal?8:5).forEach(c=>{html+=`<li><span>${esc(c.txt)}</span></li>`;});
     html+='</ul></div>';
   }
-  // Comparação (E4)
-  if(!ehMensal && r.comparacao){
+  if(!ehMensal&&r.comparacao){
     html+='<div class="rs-comparacao"><div class="lt">↗ Um pouco melhor que a anterior</div>';
     if(r.comparacao.marc>0)html+=`<div class="linha-cmp"><span>Marcou nos hábitos</span><b>+${r.comparacao.marc}</b></div>`;
     if(r.comparacao.checkin>0)html+=`<div class="linha-cmp"><span>Dias de check-in</span><b>+${r.comparacao.checkin}</b></div>`;
@@ -2436,28 +2481,22 @@ function mostrarResumo(r,tipo){
   $('rsCorpo').innerHTML=html;
   const o=$('resumoSemanal');o.hidden=false;requestAnimationFrame(()=>o.classList.add('ativo'));document.body.style.overflow='hidden';
   confete(['✨','📊','💛']);
-  // Vincula os botões (podem ter mudado)
   $('rsFechar').onclick=fecharResumo;
   $('rsVerDepois').onclick=()=>{
     if(ehMensal){if(S.resumoMensal)S.resumoMensal.ultimoEm=Date.now()-26*86400000;salva();}
-    else{if(S.resumo)S.resumo.ultimoEm=Date.now()-5*86400000;salva();}
+    else {if(S.resumo)S.resumo.ultimoEm=Date.now()-5*86400000;salva();}
     fecharResumo();
   };
   $('rsPdf').onclick=()=>setTimeout(()=>{try{window.print();}catch(e){avisar('Não consegui abrir a impressão. Tente pelo menu do navegador.');}},150);
 }
-function fecharResumo(){
-  const o=$('resumoSemanal');o.classList.remove('ativo');
-  setTimeout(()=>{o.hidden=true;document.body.style.overflow='';},400);
-}
+function fecharResumo(){const o=$('resumoSemanal');o.classList.remove('ativo');setTimeout(()=>{o.hidden=true;document.body.style.overflow='';},400);}
 
-/* ============ AVISOS INICIAIS (voltei depois de tempo + lembrete mensal) ============ */
+/* ============ AVISOS INICIAIS ============ */
 function avisosIniciais(){
-  // Prioridade: volta > resumo mensal/semanal > lembrete de saúde
   const agora=new Date();
   const hojeStr=hoje();
   const ultimo=S.ultimoAcesso;
   S.ultimoAcesso=Date.now();salva();
-  // E3: voltou depois de um tempo
   if(ultimo){
     const diasAusente=Math.round((new Date(hojeStr)-new Date(fmtD(new Date(ultimo))))/86400000);
     if(diasAusente>=14){
@@ -2473,7 +2512,6 @@ function avisosIniciais(){
     }
   }
   setTimeout(verificarResumoSemanal,300);
-  // Lembrete de saúde (E2)
   setTimeout(checarLembreteSaude,1800);
 }
 function checarLembreteSaude(){
@@ -2481,7 +2519,6 @@ function checarLembreteSaude(){
   const agora=new Date();
   const mesAtual=pad2(agora.getFullYear())+'-'+pad2(agora.getMonth()+1);
   if(S.ultimoLembreteSaude===mesAtual)return;
-  // Só nos primeiros 5 dias do mês
   if(agora.getDate()>5)return;
   S.ultimoLembreteSaude=mesAtual;salva();
   dialogo({
@@ -2508,8 +2545,7 @@ function abrirHistoricoResumos(){
     }).join('');
     document.querySelectorAll('#listaHistorico [data-idx]').forEach(el=>{
       el.onclick=()=>{
-        const i=+el.dataset.idx;
-        const r=todos[i];
+        const i=+el.dataset.idx;const r=todos[i];
         const o=$('historicoModal');o.classList.remove('ativo');
         setTimeout(()=>{o.hidden=true;mostrarResumo(r,r.tipo);},340);
       };
@@ -2584,7 +2620,6 @@ function renderMapa(ciclo,anterior){
 function abrirRelatorioCompleto(rel){
   if(!rel)return;const o=$('relatorioOverlay');const corpo=$('relatorioCorpo');
   const dataStr=new Date().toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'});
-  // C1: bloco de notas recentes do ciclo
   let blocoNotas='';
   const cicloInicio=fmtD(addDias(new Date(),-21));
   const notasCiclo=[];
@@ -2637,8 +2672,7 @@ $('configFechar').onclick=()=>{const o=$('configModal');o.classList.remove('ativ
 $('btnVerUltimoResumo').onclick=()=>{
   const hist=S.resumo&&S.resumo.historico?S.resumo.historico:[];
   if(!hist.length){avisar('Ainda não tem nenhum resumo semanal. Ele aparece sozinho depois de uma semana de uso.');return;}
-  const r=hist[hist.length-1];
-  const o=$('configModal');o.classList.remove('ativo');
+  const r=hist[hist.length-1];const o=$('configModal');o.classList.remove('ativo');
   setTimeout(()=>{o.hidden=true;mostrarResumo(r,'semanal');},340);
 };
 $('btnHistoricoResumos').onclick=()=>{
@@ -2748,8 +2782,8 @@ function atualizarBonusFesta(){const b=festaBonusAtual;if(b){$('festaBonusNome')
 montaCheckin();
 renderHoje();
 frase();
-if(!S.onboarding.feito){ setTimeout(iniciarOnboarding, 300); }
-else { setTimeout(avisosIniciais, 900); }
+if(!S.onboarding.feito){setTimeout(iniciarOnboarding,300);}
+else {setTimeout(avisosIniciais,900);}
 </script>
 </body>
 </html>
