@@ -904,6 +904,7 @@ body{padding-bottom:calc(86px + env(safe-area-inset-bottom,0px));-webkit-overflo
     <p class="onb-texto">Antes de começar, como você gosta de ser chamada?</p>
     <input class="onb-campo" id="onbNome" placeholder="Seu primeiro nome" autocomplete="off">
     <button class="onb-btn" id="onbBtn1">Continuar</button>
+    <button class="onb-btn sec" id="onbJaUso" type="button">Já uso em outro aparelho? Entrar com o Google</button>
   </div>
   <div class="onb-caixa" id="onbP2" hidden>
     <div class="onb-titulo" id="onbTit2">Vamos começar pequeno</div>
@@ -965,6 +966,9 @@ body{padding-bottom:calc(86px + env(safe-area-inset-bottom,0px));-webkit-overflo
     <input id="lemHora" type="time" style="margin-bottom:8px">
     <button class="btn prim btn-full" id="btnAddLemb">Adicionar lembrete</button>
     <div id="lemLista" style="margin-top:10px"></div>
+    <h3 style="margin-top:18px">☁️ Sincronização</h3>
+    <p class="mut" style="font-size:12.5px;margin-bottom:8px" id="nuvemStatus">Desconectada</p>
+    <button class="btn prim btn-full" id="btnNuvem">Entrar / gerenciar</button>
     <h3 style="margin-top:18px">📊 Resumos</h3>
     <p class="mut" style="font-size:12.5px;margin-bottom:8px">Último semanal visto: <b id="ultimoResumo">—</b>.<br>Último mensal visto: <b id="ultimoResumoMensal">—</b>.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -1456,6 +1460,339 @@ body{padding-bottom:calc(86px + env(safe-area-inset-bottom,0px));-webkit-overflo
   </div>
 </div>
 
+<script type="module">
+  /* ============ NUVEM: login + criptografia no aparelho ============
+     O Firebase só recebe texto embaralhado (AES-GCM). A chave nasce da
+     frase-senha dela (PBKDF2) e nunca sai do aparelho. */
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAQcFNLHkrNuMN7fJ0E2pbnou4cZy99Tlk",
+    authDomain: "diva-b3ce4.firebaseapp.com",
+    databaseURL: "https://diva-b3ce4-default-rtdb.firebaseio.com",
+    projectId: "diva-b3ce4",
+    storageBucket: "diva-b3ce4.firebasestorage.app",
+    messagingSenderId: "1068566024808",
+    appId: "1:1068566024808:web:08d4d7f304370157f9a1dd"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+  const $ = id => document.getElementById(id);
+  const enc = new TextEncoder(), dec = new TextDecoder();
+  const b64 = buf => { const a = new Uint8Array(buf); let s = ''; for (let i = 0; i < a.length; i++) s += String.fromCharCode(a[i]); return btoa(s); };
+  const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+
+  /* ---- criptografia ---- */
+  async function derivaChave(frase, salt) {
+    const base = await crypto.subtle.importKey('raw', enc.encode(frase.normalize('NFKC')), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 250000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+  }
+  async function cifra(chave, texto) {
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, chave, enc.encode(texto));
+    return { iv: b64(iv), ct: b64(ct) };
+  }
+  async function decifra(chave, o) {
+    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(o.iv) }, chave, unb64(o.ct));
+    return dec.decode(pt);
+  }
+
+  /* ---- chave guardada neste aparelho (não exportável) ---- */
+  function abreIDB() {
+    return new Promise((res, rej) => {
+      const r = indexedDB.open('diva-cofre', 1);
+      r.onupgradeneeded = () => r.result.createObjectStore('k');
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    });
+  }
+  async function guardaChave(uid, chave, salt) {
+    const d = await abreIDB();
+    return new Promise((res, rej) => { const tx = d.transaction('k', 'readwrite'); tx.objectStore('k').put({ chave, salt }, uid); tx.oncomplete = res; tx.onerror = () => rej(tx.error); });
+  }
+  async function lerChave(uid) {
+    const d = await abreIDB();
+    return new Promise((res, rej) => { const q = d.transaction('k').objectStore('k').get(uid); q.onsuccess = () => res(q.result || null); q.onerror = () => rej(q.error); });
+  }
+  async function apagaChave(uid) {
+    const d = await abreIDB();
+    return new Promise((res, rej) => { const tx = d.transaction('k', 'readwrite'); tx.objectStore('k').delete(uid); tx.oncomplete = res; tx.onerror = () => rej(tx.error); });
+  }
+
+  /* ---- estado ---- */
+  let user = null, chave = null, salt = null, timer = null, statusTxt = 'Desconectada';
+  let pausado = false; // true enquanto falta decidir qual lado vale: nada sobe para a nuvem
+  const caminho = (parte) => `usuarios/${user.uid}/${parte}`;
+  // este aparelho já sincronizou com ESTA conta antes?
+  const vinculoOk = () => { try { return !!user && localStorage.getItem('divaVinculo') === user.uid; } catch (e) { return false; } };
+  const marcaVinculo = () => { try { if (user) localStorage.setItem('divaVinculo', user.uid); } catch (e) {} };
+
+  function setStatus(t) {
+    statusTxt = t;
+    const el = $('nuvemStatus'); if (el) el.textContent = t;
+  }
+
+  async function enviaAgora() {
+    if (!chave || !user || pausado) return;
+    try {
+      let t = localStorage.getItem('divaT');
+      if (!t) { t = new Date().toISOString(); localStorage.setItem('divaT', t); }
+      const c = await cifra(chave, JSON.stringify(window.DIVA.getEstado()));
+      await set(ref(db, caminho('estado')), { v: 1, iv: c.iv, ct: c.ct, t });
+      marcaVinculo();
+      setStatus('☁️ Sincronizada');
+    } catch (e) {
+      console.error('Erro ao sincronizar:', e);
+      setStatus('Não consegui sincronizar agora (seus dados continuam salvos neste aparelho)');
+    }
+  }
+
+  // chamada pelo app a cada salvamento
+  window.salvarNoFirebase = function () {
+    try { localStorage.setItem('divaT', new Date().toISOString()); } catch (e) {}
+    if (!chave || !user || pausado) return;
+    setStatus('Sincronizando…');
+    clearTimeout(timer);
+    timer = setTimeout(enviaAgora, 1500);
+  };
+
+  // Pergunta qual lado vale quando há dados nos dois lugares. Nada sobe sem essa decisão.
+  function perguntaLado(motivo, usarNuvem, usarAparelho) {
+    garanteModal();
+    const campos = $('nvCampos'), botoes = $('nvBotoes');
+    campos.innerHTML = ''; botoes.innerHTML = ''; erro('');
+    $('nvTitulo').textContent = '☁️ Dados em dois lugares';
+    $('nvTexto').textContent = motivo === 'nuvem-mais-nova'
+      ? 'Encontrei dados mais novos na nuvem do que os deste aparelho. Qual versão você quer manter? A outra será substituída.'
+      : 'Esta conta já tem dados na nuvem, e este aparelho também tem os seus. Qual versão você quer manter? A outra será substituída.';
+    botoes.append(
+      botao('Usar os dados da nuvem', 'prim', usarNuvem),
+      botao('Manter os deste aparelho', 'sec', usarAparelho),
+      botao('Decidir depois', 'sec', () => { setStatus('Sincronização pausada: escolha em ⚙️ → Sincronização'); fecha(); })
+    );
+    abre();
+  }
+
+  async function sincronizaInicial() {
+    setStatus('Sincronizando…');
+    pausado = true; // nada sobe até sabermos o que há na nuvem e o que o usuário prefere
+    try {
+      const snap = await get(ref(db, caminho('estado')));
+      if (!snap.exists()) { pausado = false; await enviaAgora(); return; }
+      const r = snap.val();
+      const localT = localStorage.getItem('divaT') || '';
+      if (r.t === localT) { marcaVinculo(); pausado = false; setStatus('☁️ Sincronizada'); return; }
+
+      const remoto = JSON.parse(await decifra(chave, r)); // também confere a frase-senha
+      const est = window.DIVA.getEstado();
+      const temLocal = !!(est.onboarding && est.onboarding.feito);
+
+      const usarNuvem = () => {
+        window.DIVA.setEstado(remoto);
+        try { localStorage.setItem('divaT', r.t); } catch (e) {}
+        marcaVinculo(); pausado = false;
+        location.reload();
+      };
+      const usarAparelho = async () => {
+        try { localStorage.setItem('divaT', new Date().toISOString()); } catch (e) {}
+        pausado = false;
+        fecha();
+        await enviaAgora();
+      };
+
+      if (!temLocal) { usarNuvem(); return; }                       // aparelho novo: só traz o que já existe
+      if (vinculoOk() && r.t <= localT) { await usarAparelho(); return; } // este aparelho é o mais recente: sobe normalmente
+      perguntaLado(vinculoOk() ? 'nuvem-mais-nova' : 'primeira-vez', usarNuvem, usarAparelho);
+    } catch (e) {
+      // continua pausado de propósito: se não deu para ler a nuvem, nada pode sobrescrevê-la
+      console.error(e);
+      setStatus('Não consegui ler a nuvem. Sincronização pausada para não sobrescrever seus dados.');
+      try { garanteModal(); erro('Não consegui ler os dados da nuvem. Nada foi alterado.'); } catch (e2) {}
+    }
+  }
+
+  async function criaCofre(frase) {
+    salt = crypto.getRandomValues(new Uint8Array(16));
+    chave = await derivaChave(frase, salt);
+    const check = await cifra(chave, 'diva-ok');
+    await set(ref(db, caminho('meta')), { v: 1, salt: b64(salt), check });
+    await guardaChave(user.uid, chave, salt);
+    await sincronizaInicial();
+  }
+  async function abreCofre(frase, meta) {
+    const s = unb64(meta.salt);
+    const k = await derivaChave(frase, s);
+    let ok = false;
+    try { ok = (await decifra(k, meta.check)) === 'diva-ok'; } catch (e) {}
+    if (!ok) throw new Error('frase-errada');
+    salt = s; chave = k;
+    await guardaChave(user.uid, chave, salt);
+    await sincronizaInicial();
+  }
+
+  /* ---- backup cifrado (usa o mesmo salt da conta) ---- */
+  window.DIVAcripto = {
+    ativo: () => !!chave,
+    cifrarBackup: async (texto) => {
+      const c = await cifra(chave, texto);
+      return JSON.stringify({ diva: 1, cifrado: true, salt: b64(salt), iv: c.iv, ct: c.ct });
+    },
+    abrirBackup: async (obj, frase) => {
+      const k = await derivaChave(frase, unb64(obj.salt));
+      return decifra(k, obj);
+    }
+  };
+
+  /* ---- janela de login ---- */
+  const erros = {
+    'auth/invalid-credential': 'E-mail ou senha incorretos.',
+    'auth/wrong-password': 'E-mail ou senha incorretos.',
+    'auth/user-not-found': 'E-mail ou senha incorretos.',
+    'auth/invalid-email': 'Esse e-mail não parece válido.',
+    'auth/email-already-in-use': 'Esse e-mail já tem conta. Use "Entrar".',
+    'auth/weak-password': 'A senha precisa de pelo menos 6 caracteres.',
+    'auth/operation-not-allowed': 'O login por e-mail ainda não foi ativado no Firebase.',
+    'auth/network-request-failed': 'Sem conexão agora. Tente de novo.',
+    'auth/too-many-requests': 'Muitas tentativas. Espere um pouco.',
+    'auth/popup-closed-by-user': 'A janela do Google foi fechada antes de terminar. Tente de novo.',
+    'auth/cancelled-popup-request': 'A janela do Google foi fechada antes de terminar. Tente de novo.',
+    'auth/popup-blocked': 'O navegador bloqueou a janela do Google. Libere pop-ups para este site e tente de novo.',
+    'auth/unauthorized-domain': 'Este site ainda não está autorizado no Firebase (Authentication → Configurações → Domínios autorizados).',
+    'auth/configuration-not-found': 'O Authentication ainda não foi iniciado no Firebase (console → Authentication → Vamos começar).',
+    'auth/api-key-not-valid.-please-pass-a-valid-api-key.': 'A chave do Firebase no app está inválida.',
+    'auth/invalid-api-key': 'A chave do Firebase no app está inválida.',
+    'auth/admin-restricted-operation': 'Criar contas está desativado no Firebase.',
+    'auth/app-not-authorized': 'Este app não está autorizado a usar esse projeto do Firebase.'
+  };
+  const msgErro = e => erros[e && e.code] || ('Algo deu errado (' + ((e && e.code) || (e && e.message) || 'sem código') + ').');
+
+  let modal = null;
+  function garanteModal() {
+    if (modal) return modal;
+    modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.id = 'nuvemModal';
+    modal.style.zIndex = '400'; // acima do onboarding (300), para o login aparecer na primeira tela
+    modal.hidden = true;
+    modal.innerHTML = '<div class="modal-caixa" style="text-align:left;max-width:420px"><div class="modal-pergunta" id="nvTitulo" style="text-align:center"></div><p class="mut" id="nvTexto" style="font-size:13px;line-height:1.6;margin-bottom:14px"></p><div id="nvCampos" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px"></div><p id="nvErro" style="font-size:12.5px;color:#c0392b;min-height:16px;margin-bottom:8px"></p><div id="nvBotoes" style="display:flex;flex-direction:column;gap:8px"></div></div>';
+    document.body.appendChild(modal);
+    return modal;
+  }
+  function abre() { const m = garanteModal(); m.hidden = false; setTimeout(() => m.classList.add('ativo'), 10); }
+  function fecha() { if (!modal) return; modal.classList.remove('ativo'); setTimeout(() => { modal.hidden = true; }, 320); }
+
+  function campo(id, tipo, ph, ac) {
+    const i = document.createElement('input');
+    i.id = id; i.type = tipo; i.placeholder = ph; i.autocomplete = ac || 'off';
+    return i;
+  }
+  function botao(txt, cls, fn) {
+    const b = document.createElement('button');
+    b.className = 'modal-btn ' + cls; b.textContent = txt; b.onclick = fn;
+    return b;
+  }
+  function erro(t) { $('nvErro').textContent = t || ''; }
+
+  async function mostraNuvem() {
+    garanteModal();
+    const campos = $('nvCampos'), botoes = $('nvBotoes');
+    campos.innerHTML = ''; botoes.innerHTML = ''; erro('');
+
+    if (!user) {
+      $('nvTitulo').textContent = '☁️ Sincronizar com segurança';
+      $('nvTexto').textContent = 'Entre com sua conta Google para guardar seus dados na nuvem e usar em mais de um aparelho. Tudo é embaralhado antes de sair daqui: só você consegue ler.';
+      botoes.append(
+        botao('Entrar com o Google', 'prim', async () => {
+          erro('');
+          try { await signInWithPopup(auth, new GoogleAuthProvider()); }
+          catch (err) { console.error('Erro de login:', err); erro(msgErro(err)); }
+        }),
+        botao('Agora não', 'sec', () => { try { localStorage.setItem('divaAdiar', '1'); } catch (e) {} fecha(); })
+      );
+      abre(); return;
+    }
+
+    if (!chave) {
+      let meta = null;
+      try { const s = await get(ref(db, caminho('meta'))); meta = s.exists() ? s.val() : null; }
+      catch (e) {
+        $('nvTitulo').textContent = '☁️ Sem conexão';
+        $('nvTexto').textContent = 'Não foi possível verificar seu cofre. Seus dados neste aparelho continuam salvos.';
+        erro('Não consegui falar com a nuvem. Tente de novo.');
+        botoes.append(botao('Tentar de novo', 'prim', mostraNuvem), botao('Fechar', 'sec', fecha));
+        abre(); return;
+      }
+      const sair = botao('Sair da conta', 'sec', async () => { await sair_(); });
+      if (meta) {
+        $('nvTitulo').textContent = '🔑 Sua frase-senha';
+        $('nvTexto').textContent = 'Digite a frase-senha que você criou para proteger seus dados. Ela não é a senha da conta.';
+        campos.append(campo('nvFrase', 'password', 'Frase-senha', 'off'));
+        botoes.append(botao('Desbloquear', 'prim', async () => {
+          erro(''); const f = $('nvFrase').value; if (!f) { erro('Digite a frase-senha.'); return; }
+          try { await abreCofre(f, meta); if (!pausado) fecha(); } catch (err) { erro(err.message === 'frase-errada' ? 'Frase-senha incorreta.' : 'Não consegui desbloquear. Tente de novo.'); }
+        }), sair);
+      } else {
+        $('nvTitulo').textContent = '🔑 Crie sua frase-senha';
+        $('nvTexto').textContent = 'Ela embaralha seus dados antes de irem para a nuvem. Escolha algo que você lembre, com 8 ou mais caracteres. Atenção: se esquecer, ninguém consegue recuperar os dados da nuvem (nem quem fez o app).';
+        campos.append(campo('nvFrase', 'password', 'Frase-senha (mín. 8)', 'new-password'), campo('nvFrase2', 'password', 'Repita a frase-senha', 'new-password'));
+        botoes.append(botao('Criar e sincronizar', 'prim', async () => {
+          erro(''); const f = $('nvFrase').value, f2 = $('nvFrase2').value;
+          if (f.length < 8) { erro('Use pelo menos 8 caracteres.'); return; }
+          if (f !== f2) { erro('As duas frases não são iguais.'); return; }
+          try { await criaCofre(f); if (!pausado) fecha(); } catch (err) { console.error(err); erro('Não consegui criar agora. Tente de novo.'); }
+        }), sair);
+      }
+      abre(); return;
+    }
+
+    if (pausado) {
+      $('nvTitulo').textContent = '☁️ Sincronização pausada';
+      $('nvTexto').textContent = 'Nada foi enviado para a nuvem ainda. Escolha qual versão dos dados vale, ou tente de novo.';
+      botoes.append(botao('Escolher agora', 'prim', async () => { await sincronizaInicial(); if (!pausado) fecha(); }), botao('Fechar', 'sec', fecha));
+      abre(); return;
+    }
+    $('nvTitulo').textContent = '☁️ Tudo certo';
+    $('nvTexto').textContent = 'Seus dados estão sendo guardados na nuvem, embaralhados. Em outro aparelho, entre com a mesma conta Google e a mesma frase-senha.';
+    botoes.append(botao('Fechar', 'prim', fecha), botao('Sair desta conta', 'sec', async () => { await sair_(); }));
+    abre();
+  }
+
+  async function sair_() {
+    const uid = user && user.uid;
+    try { if (uid) await apagaChave(uid); } catch (e) {}
+    chave = null; salt = null;
+    await signOut(auth);
+    fecha();
+  }
+
+  /* ---- liga tudo ---- */
+  onAuthStateChanged(auth, async (u) => {
+    user = u;
+    if (!u) {
+      chave = null; salt = null; setStatus('Desconectada');
+      const pronto = window.DIVA && window.DIVA.getEstado().onboarding && window.DIVA.getEstado().onboarding.feito;
+      let adiou = false; try { adiou = !!localStorage.getItem('divaAdiar'); } catch (e) {}
+      if (pronto && !adiou) setTimeout(mostraNuvem, 1200);
+      else if (modal && !modal.hidden) mostraNuvem();
+      return;
+    }
+    let guardada = null;
+    try { guardada = await lerChave(u.uid); } catch (e) {}
+    if (guardada) { chave = guardada.chave; salt = guardada.salt; await sincronizaInicial(); }
+    else { setStatus('Conectada — falta a frase-senha'); mostraNuvem(); }
+  });
+
+  const btn = $('btnNuvem');
+  if (btn) btn.onclick = () => { try { localStorage.removeItem('divaAdiar'); } catch (e) {} mostraNuvem(); };
+  // permite abrir o login a partir de outras telas (ex.: primeira tela do onboarding)
+  window.DIVAnuvem = { abrir: () => { try { localStorage.removeItem('divaAdiar'); } catch (e) {} mostraNuvem(); } };
+  setStatus(statusTxt);
+</script>
 <script>
 /* ============ BANCO DE RELATÓRIO ============ */
 const BANCO = {
@@ -2075,7 +2412,21 @@ function carrega(){
   return estadoInicial();
 }
 let S=carrega();
-function salva(){try{localStorage.setItem('batomRisadaV23',JSON.stringify(S));}catch(e){}}
+/* ponte entre o app e a camada de nuvem (módulo acima) */
+window.DIVA={
+  getEstado:()=>S,
+  setEstado:d=>{S=garanteNovosCampos(d);try{localStorage.setItem('batomRisadaV23',JSON.stringify(S));}catch(e){}},
+  confirmar:(...a)=>confirmar(...a),
+  avisar:(...a)=>avisar(...a)
+};
+function salva(){
+  try{
+    localStorage.setItem('batomRisadaV23',JSON.stringify(S));
+    if(window.salvarNoFirebase) window.salvarNoFirebase(S);
+  }catch(e){}
+}
+
+
 
 function frase(){$('frase').style.opacity=0;setTimeout(()=>{$('frase').textContent=FRASES[Math.floor(Math.random()*FRASES.length)];$('frase').style.opacity=1;},250);}
 
@@ -2145,6 +2496,10 @@ function finalizarOnboarding(){
 }
 $('onbBtn1').onclick=()=>{const nome=$('onbNome').value.trim();if(!nome){$('onbNome').focus();return;}S.onboarding.nome=nome;salva();mostrarOnbPasso(2);};
 $('onbNome').addEventListener('keydown',e=>{if(e.key==='Enter')$('onbBtn1').click();});
+$('onbJaUso').onclick=()=>{
+  if(window.DIVAnuvem){window.DIVAnuvem.abrir();}
+  else{const b=$('onbJaUso');b.textContent='Carregando… toque de novo em instantes';setTimeout(()=>{b.textContent='Já uso em outro aparelho? Entrar com o Google';},3000);}
+};
 $('onbBtn2').onclick=()=>{
   if(!S.habitos.some(h=>h.id==='agua'))S.habitos.push({id:'agua',emoji:'💧',emojis:['💧','🥤','✨'],nome:'Beber água ao acordar',paraQue:'Cuidar do meu bem-estar',unidade:'1 copo ao acordar',feitos:{},cor:'c4',grupo:'corpo',dims:['corpo','energia']});
   S.proximoHabitoEm=Date.now()+3*86400000;S.habitoTravaId='agua';salva();mostrarOnbPasso(3);
@@ -2501,7 +2856,7 @@ function abrirModalFila(item){
   else{$('filaModalPara').style.display='none';$('filaModalPara').textContent='';}
   $('filaModalBotoes').innerHTML=`<button class="modal-btn sec" id="filaNao">Ainda não</button><button class="modal-btn prim" id="filaSim">Sim, quero</button>`;
   $('filaNao').onclick=mostrarTudoBemFila;$('filaSim').onclick=mostrarImportanciaFila;
-  overlay.hidden=false;requestAnimationFrame(()=>overlay.classList.add('ativo'));document.body.style.overflow='hidden';
+  abrirOverlay(overlay);
 }
 function mostrarImportanciaFila(){
   if(!filaItemAtual)return;
@@ -2519,7 +2874,7 @@ function mostrarTudoBemFila(){
   $('filaModalBotoes').innerHTML=`<button class="modal-btn prim" id="filaOk">Ok</button>`;
   $('filaOk').onclick=fecharModalFila;
 }
-function fecharModalFila(){const o=$('filaModal');o.classList.remove('ativo');setTimeout(()=>{o.hidden=true;document.body.style.overflow='';},320);filaItemAtual=null;}
+function fecharModalFila(){const o=$('filaModal');fecharOverlay(o);filaItemAtual=null;}
 function adicionarHabitoFila(item){
   if(S.habitos.some(h=>h.nome===item.nome||(item.id&&h.id===item.id))){avisar('Você já tem esse hábito. 💛');return;}
   const hist=S.historicoRemovidos[item.nome];
@@ -5544,7 +5899,9 @@ $('btnExportarNotas').onclick=()=>{
 function renderLembretes(){$('lemLista').innerHTML=S.lembretes.map((l,i)=>`<div class="lista-item"><div class="txt">${esc(l.frase)} <span class="mut">· ${esc(l.hora)}</span></div><button class="btn fant" data-lem="${i}">×</button></div>`).join('');document.querySelectorAll('#lemLista [data-lem]').forEach(b=>{b.onclick=()=>{S.lembretes.splice(+b.dataset.lem,1);salva();renderLembretes();renderHoje();};});}
 $('btnAddLemb').onclick=()=>{const f=$('lemFrase').value.trim(),h=$('lemHora').value;if(!f||!h)return avisar('Preencha frase e hora.');S.lembretes.push({id:'l'+Date.now(),frase:f,hora:h});$('lemFrase').value='';$('lemHora').value='';salva();renderLembretes();renderHoje();};
 async function exportarBackup(){
-  const data=JSON.stringify(S,null,2);const nome='batom-risada-backup-'+hoje()+'.json';
+  let data=JSON.stringify(S,null,2);
+  if(window.DIVAcripto&&window.DIVAcripto.ativo()){try{data=await window.DIVAcripto.cifrarBackup(data);}catch(e){avisar('Não consegui proteger o backup.');return;}}
+  const nome='batom-risada-backup-'+hoje()+'.json';
   const blob=new Blob([data],{type:'application/json'});const file=new File([blob],nome,{type:'application/json'});
   if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:'Backup Batom & Risada'});return;}catch(err){if(err&&err.name==='AbortError')return;}}
   try{const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=nome;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),1500);}
@@ -5552,7 +5909,11 @@ async function exportarBackup(){
 }
 $('btnExportar').onclick=()=>exportarBackup();
 $('btnImportar').onclick=()=>$('fileBackup').click();
-$('fileBackup').onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);confirmar('Substituir seus dados atuais pelo backup?',()=>{S=garanteNovosCampos(d);salva();avisar('Backup restaurado 💛',()=>location.reload());},'Substituir');}catch(err){avisar('Arquivo inválido.');}};r.readAsText(file);};
+$('fileBackup').onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{try{let d=JSON.parse(ev.target.result);
+if(d&&d.cifrado){const f=prompt('Este backup é protegido. Digite sua frase-senha:');if(!f)return;if(!window.DIVAcripto){avisar('Não consegui carregar a parte de segurança. Tente de novo.');return;}try{d=JSON.parse(await window.DIVAcripto.abrirBackup(d,f));}catch(e){avisar('Frase-senha incorreta.');return;}}
+if(!d||typeof d!=='object'||Array.isArray(d)||!Array.isArray(d.habitos)||!Array.isArray(d.premios)||!d.checkins||typeof d.checkins!=='object'||Array.isArray(d.checkins))throw new Error('Backup inválido');
+d=garanteNovosCampos(d);
+confirmar('Substituir seus dados atuais pelo backup?',()=>{S=d;salva();avisar('Backup restaurado 💛',()=>location.reload());},'Substituir');}catch(err){avisar('Arquivo inválido.');}};r.readAsText(file);};
 function trocaAba(t){
   document.querySelectorAll('section[id^="tab-"]').forEach(s=>s.hidden=(s.id!=='tab-'+t));
   
@@ -5811,41 +6172,67 @@ const ESTILO_TEXTOS={
 };
 const ESTILO_PRATICAS={
   palavras:[
-    {emoji:'✍️',nome:'Escrever uma frase gentil sobre si'},
-    {emoji:'📝',nome:'Registrar uma pequena conquista do dia'},
-    {emoji:'🎙️',nome:'Gravar um áudio curto de incentivo para ouvir depois'},
-    {emoji:'🪞',nome:'Reformular uma autocrítica em uma frase mais justa'},
-    {emoji:'💭',nome:'Completar: “Hoje eu reconheço que…”'}
+    {emoji:'✍️',nome:'Escrever uma frase gentil sobre si',unidade:'1×/dia',grupo:'mente',dims:['autopercepcao','regulacao'],texto:'Um minuto para falar consigo com carinho.'},
+    {emoji:'📝',nome:'Registrar uma pequena conquista do dia',unidade:'1×/dia',grupo:'mente',dims:['autopercepcao','direcao'],texto:'Nomear o que você fez já é cuidado.'},
+    {emoji:'🎙️',nome:'Gravar um áudio curto de incentivo para ouvir depois',unidade:'quando precisar',grupo:'mente',dims:['autopercepcao','regulacao'],texto:'Sua própria voz como apoio.'},
+    {emoji:'🪞',nome:'Reformular uma autocrítica em uma frase mais justa',unidade:'quando surgir',grupo:'mente',dims:['autopercepcao','ansiedade'],texto:'Trocar a cobrança por uma frase mais justa.'},
+    {emoji:'💭',nome:'Completar: Hoje eu reconheço que…',unidade:'1×/dia',grupo:'mente',dims:['autopercepcao','prazer'],texto:'Uma frase curta de reconhecimento no fim do dia.'}
   ],
   tempo:[
-    {emoji:'📵',nome:'Cinco minutos sem celular'},
-    {emoji:'🎵',nome:'Ouvir uma música sem fazer outra coisa'},
-    {emoji:'🎨',nome:'Reservar um bloco curto para um hobby'},
-    {emoji:'☕',nome:'Pausa consciente com chá ou café'},
-    {emoji:'🚶',nome:'Caminhada lenta só para estar consigo'}
+    {emoji:'📵',nome:'Cinco minutos sem celular',unidade:'5 min/dia',grupo:'mente',dims:['regulacao','ansiedade'],texto:'Cinco minutos só seus, sem tela.'},
+    {emoji:'🎵',nome:'Ouvir uma música sem fazer outra coisa',unidade:'1 música/dia',grupo:'rituais',dims:['prazer','regulacao'],texto:'Uma música com atenção plena.'},
+    {emoji:'🎨',nome:'Reservar um bloco curto para um hobby',unidade:'15 min, 3×/semana',grupo:'rituais',dims:['prazer','direcao'],texto:'Um pedaço de tempo para o que você gosta.'},
+    {emoji:'☕',nome:'Pausa consciente com chá ou café',unidade:'1×/dia',grupo:'rituais',dims:['prazer','regulacao'],texto:'Beber com calma, sem multitarefa.'},
+    {emoji:'🚶',nome:'Caminhada lenta só para estar consigo',unidade:'10 min, quando der',grupo:'corpo',dims:['energia','ansiedade','regulacao'],texto:'Andar devagar, só para respirar e estar consigo.'}
   ],
   presentes:[
-    {emoji:'✨',nome:'Usar algo especial que costuma guardar'},
-    {emoji:'🍵',nome:'Preparar a bebida favorita com calma'},
-    {emoji:'🎧',nome:'Montar uma playlist só sua'},
-    {emoji:'🎀',nome:'Criar um mimo com o que já tem em casa'},
-    {emoji:'🌸',nome:'Escolher um detalhe bonito para o dia'}
+    {emoji:'✨',nome:'Usar algo especial que costuma guardar',unidade:'1×/dia',grupo:'rituais',dims:['prazer','autopercepcao'],texto:'Tirar do “depois” e usar hoje.'},
+    {emoji:'🍵',nome:'Preparar a bebida favorita com calma',unidade:'1×/dia',grupo:'rituais',dims:['prazer','corpo'],texto:'Um agrado simples no meio do dia.'},
+    {emoji:'🎧',nome:'Montar uma playlist só sua',unidade:'1×/semana',grupo:'rituais',dims:['prazer','autopercepcao'],texto:'Uma trilha que é só sua.'},
+    {emoji:'🎀',nome:'Criar um mimo com o que já tem em casa',unidade:'quando quiser',grupo:'rituais',dims:['prazer','autopercepcao'],texto:'Presente sem precisar comprar nada.'},
+    {emoji:'🌸',nome:'Escolher um detalhe bonito para o dia',unidade:'1×/dia',grupo:'rituais',dims:['prazer','autopercepcao'],texto:'Perfume, caneca, luz: um detalhe seu.'}
   ],
   servico:[
-    {emoji:'🌅',nome:'Preparar o mínimo para a manhã seguinte'},
-    {emoji:'⏱️',nome:'Resolver uma pendência de cinco minutos'},
-    {emoji:'🍱',nome:'Deixar uma refeição simples encaminhada'},
-    {emoji:'🪴',nome:'Organizar um canto que reduz sobrecarga'},
-    {emoji:'📋',nome:'Anotar só três prioridades e largar o resto da lista'}
+    {emoji:'🌅',nome:'Preparar o mínimo para a manhã seguinte',unidade:'à noite',grupo:'lar',dims:['sobrecarga','direcao'],texto:'Deixar o essencial pronto reduz o atrito de amanhã.'},
+    {emoji:'⏱️',nome:'Resolver uma pendência de cinco minutos',unidade:'1×/dia',grupo:'essencial',dims:['sobrecarga','ansiedade'],texto:'Uma coisa minúscula fora da cabeça.'},
+    {emoji:'🍱',nome:'Deixar uma refeição simples encaminhada',unidade:'2×/semana',grupo:'lar',dims:['corpo','sobrecarga'],texto:'Comida encaminhada é cuidado prático.'},
+    {emoji:'🪴',nome:'Organizar um canto que reduz sobrecarga',unidade:'10 min, 3×/semana',grupo:'lar',dims:['sobrecarga','regulacao'],texto:'Um cantinho mais leve já muda o dia.'},
+    {emoji:'📋',nome:'Anotar só três prioridades e largar o resto da lista',unidade:'1×/dia',grupo:'essencial',dims:['sobrecarga','direcao'],texto:'Três itens. O resto espera.'}
   ],
   toque:[
-    {emoji:'🧴',nome:'Passar creme nas mãos com atenção'},
-    {emoji:'🧘',nome:'Alongamentos suaves por poucos minutos'},
-    {emoji:'💃',nome:'Dançar uma música de que gosta'},
-    {emoji:'🛁',nome:'Banho relaxante ou aconchego com manta'},
-    {emoji:'🌬️',nome:'Respiração percebendo ombros e mandíbula'}
+    {emoji:'🧴',nome:'Passar creme nas mãos com atenção',unidade:'1×/dia',grupo:'rituais',dims:['corpo','prazer'],texto:'Cuidado sensorial em poucos segundos.'},
+    {emoji:'🧘',nome:'Alongamentos suaves por poucos minutos',unidade:'5 min/dia',grupo:'corpo',dims:['corpo','energia'],texto:'Movimento leve, sem cobrança.'},
+    {emoji:'💃',nome:'Dançar uma música de que gosta',unidade:'1 música, quando der',grupo:'corpo',dims:['prazer','energia','corpo'],texto:'Mexer o corpo por prazer.'},
+    {emoji:'🛁',nome:'Banho relaxante ou aconchego com manta',unidade:'quando precisar',grupo:'rituais',dims:['corpo','regulacao'],texto:'Conforto físico de verdade.'},
+    {emoji:'🌬️',nome:'Respiração percebendo ombros e mandíbula',unidade:'3 min, 3×/semana',grupo:'mente',dims:['regulacao','ansiedade','corpo'],texto:'Soltar a tensão que o corpo segura.'}
   ]
 };
+function estiloPraticaParaItem(pr,catId){
+  return{
+    id:'estilo_'+catId+'_'+pr.nome.replace(/\s+/g,'_').slice(0,40),
+    emoji:pr.emoji||'🌱',
+    emojis:[pr.emoji||'🌱','✨','💛'],
+    nome:pr.nome,
+    unidade:pr.unidade||'no seu ritmo',
+    paraQue:'Do meu estilo de autocuidado',
+    texto:pr.texto||pr.nome,
+    grupo:pr.grupo||'outros',
+    dims:(pr.dims||[]).slice()
+  };
+}
+function estiloAdicionarPratica(catId,nome){
+  const lista=ESTILO_PRATICAS[catId]||[];
+  const pr=lista.find(p=>p.nome===nome);
+  if(!pr){avisar('Não encontrei essa prática.');return;}
+  if(S.habitos.some(h=>h.nome===pr.nome)){avisar('Você já tem esse hábito. 💛');return;}
+  if(S.habitos.some(h=>!h.pausado)&&!habitoLiberado()){
+    const dias=diasAteLiberar();
+    avisar('Sem pressa. Próximo hábito libera em '+dias+' dia'+(dias===1?'':'s')+'.');
+    return;
+  }
+  const item=estiloPraticaParaItem(pr,catId);
+  fecharOverlay($('estiloResultadoModal'),()=>abrirModalFila(item));
+}
 /* 30 perguntas: cada alternativa tem cat (A-E). Ordem das alternativas é embaralhada na UI. */
 const ESTILO_PERGUNTAS=[
   {q:'Você chega ao fim de um dia cansativo. O que faria você se sentir mais cuidada?',ops:[
@@ -6167,18 +6554,31 @@ function estiloMostrarResultado(){
   html+=`<div class="card2" style="margin-bottom:12px"><div class="mut" style="font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--r);margin-bottom:6px">Preferência secundária</div>
     <div style="font-weight:800;font-size:14px;margin-bottom:4px">${sMeta.emoji} ${esc(sMeta.nome)}</div>
     <p class="mut" style="font-size:12.5px;line-height:1.5;margin:0">Também entra com força nas sugestões, para o cuidado não ficar em uma faixa só.</p></div>`;
-  // práticas prioritárias
-  html+=`<div class="mut" style="font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px">Práticas que combinam com você</div>`;
+  // práticas prioritárias — clicáveis para virar hábito
+  html+=`<div class="mut" style="font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:6px">Práticas que combinam com você</div>`;
+  html+=`<p class="mut" style="font-size:12px;line-height:1.45;margin:0 0 10px">Toque em uma para adicionar à sua lista de hábitos.</p>`;
   const ids=[e.principal,e.secundaria];
   ordem.forEach(([id])=>{if(!ids.includes(id))ids.push(id);});
   ids.slice(0,3).forEach(id=>{
     const meta=Object.values(ESTILO_CATS).find(c=>c.id===id);
-    const lista=(ESTILO_PRATICAS[id]||[]).slice(0,3);
-    html+=`<div style="margin-bottom:10px"><div style="font-weight:800;font-size:13px;margin-bottom:4px">${meta.emoji} ${esc(meta.nome)}</div>`;
-    lista.forEach(pr=>{html+=`<div class="lista-item" style="margin-bottom:4px"><div class="txt">${pr.emoji} ${esc(pr.nome)}</div></div>`;});
+    const lista=ESTILO_PRATICAS[id]||[];
+    html+=`<div style="margin-bottom:12px"><div style="font-weight:800;font-size:13px;margin-bottom:6px">${meta.emoji} ${esc(meta.nome)}</div>`;
+    lista.forEach(pr=>{
+      const jaTem=S.habitos.some(h=>h.nome===pr.nome);
+      html+=`<div class="cat-sugestao ${jaTem?'ja-tem':''}" data-estilo-cat="${esc(id)}" data-estilo-prat="${esc(pr.nome)}" style="margin-bottom:6px;cursor:pointer">
+        <div class="txt"><b>${pr.emoji} ${esc(pr.nome)}</b>${pr.unidade?`<br><span class="mut">${esc(pr.unidade)}</span>`:''}</div>
+        <div class="add">${jaTem?'✓':'+'}</div>
+      </div>`;
+    });
     html+=`</div>`;
   });
   $('estiloResultadoCorpo').innerHTML=html;
+  $('estiloResultadoCorpo').querySelectorAll('[data-estilo-prat]').forEach(el=>{
+    el.onclick=()=>{
+      if(el.classList.contains('ja-tem')){mostrarToast('Você já tem esse hábito 💛');return;}
+      estiloAdicionarPratica(el.dataset.estiloCat, el.dataset.estiloPrat);
+    };
+  });
   const o=$('estiloResultadoModal');
   abrirOverlay(o);
 }
