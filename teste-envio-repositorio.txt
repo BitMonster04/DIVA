@@ -1,0 +1,4 @@
+Teste de envio ao repositório DIVA
+
+Arquivo criado a pedido do Thiago para verificar o fluxo de commit e publicação pelo serviço da conversa.
+Este arquivo não altera o funcionamento da aplicação.
